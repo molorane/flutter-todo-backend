@@ -31,8 +31,8 @@ public class TodoController {
 
     private final TodoService todoService;
 
-    @Operation(summary = "Find todos by accountId", description = "Find todos by accountId")
-    @GetMapping("{userId}")
+    @Operation(summary = "Find todos by userId", description = "Find todos by userId")
+    @GetMapping("{userId}/user")
     public ResponseEntity<List<TodoDTO>> findAllTodosByAccountId(final @PathVariable("userId") Long userId) {
         return ResponseEntity.ok(TodoMapper.INSTANCE.todosToTodoDTOs(todoService.findAllByAccountId(userId)));
     }
