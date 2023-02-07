@@ -41,10 +41,6 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findById(id);
     }
 
-    @Override
-    public List<Todo> findByNameContaining(String name) {
-        return null;
-    }
 
     @Override
     public Page<Account> findEntities(Pageable pageable) {

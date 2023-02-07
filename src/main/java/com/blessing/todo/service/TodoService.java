@@ -10,7 +10,10 @@ public interface TodoService extends AbstractService<Todo> {
 
     List<Todo> findAllByAccountId(final Long userId);
 
-    default Todo save(final Todo todo, Long userId) {
-        throw new RuntimeException("You need to implement this method to save an entity.");
+
+    List<Todo> findByTitleContaining(String name);
+
+    default void restoreDeleted(Long id) {
+        throw new RuntimeException("You need to implement this method to delete an entity.");
     }
 }

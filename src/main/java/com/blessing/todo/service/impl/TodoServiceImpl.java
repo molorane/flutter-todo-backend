@@ -28,8 +28,8 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<Todo> findByNameContaining(String name) {
-        return todoRepository.findTodoByTitleContaining(name);
+    public List<Todo> findByTitleContaining(String title) {
+        return todoRepository.findTodoByTitleContaining(title);
     }
 
     @Override
@@ -38,12 +38,17 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Todo save(Todo todo, Long userId) {
+    public Todo save(Todo todo) {
         return todoRepository.save(todo);
     }
 
     @Override
     public void deleteById(Long id) {
-        TodoService.super.deleteById(id);
+        todoRepository.deleteById(id);
+    }
+
+    @Override
+    public void restoreDeleted(Long id) {
+        todoRepository.restoreDeleted(id);
     }
 }

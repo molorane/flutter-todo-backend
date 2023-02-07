@@ -1,10 +1,8 @@
 package com.blessing.todo.service;
 
-import com.blessing.todo.entity.Todo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface AbstractService<T> {
@@ -12,7 +10,9 @@ public interface AbstractService<T> {
 
     Optional<T> findById(final Long id);
 
-    List<Todo> findByNameContaining(String name);
+    default T save(final T entity) {
+        throw new RuntimeException("You need to implement this method to save an entity.");
+    }
 
     Page<T> findEntities(final Pageable pageable);
 
