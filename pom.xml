@@ -148,9 +148,6 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/openapi/yaml/todo-openapi.yaml</inputSpec>
 							<generatorName>spring</generatorName>
-							<packageName>${project.groupId}.todo</packageName>
-							<apiPackage>${project.groupId}.api.v1</apiPackage>
-							<modelPackage>${project.groupId}.dto</modelPackage>
 							<generateApiTests>false</generateApiTests>
 							<generateModelTests>false</generateModelTests>
 							<library>spring-boot</library>
@@ -172,7 +169,7 @@
 								<useTags>true</useTags>
 								<useSpringBoot3>true</useSpringBoot3>
 								<apiPackage>com.blessing.todo.api</apiPackage>
-								<modelPackage>com.blessing.model</modelPackage>
+								<modelPackage>com.blessing.todo.model</modelPackage>
 								<generateSupportingFiles>true</generateSupportingFiles>
 							</configOptions>
 						</configuration>
