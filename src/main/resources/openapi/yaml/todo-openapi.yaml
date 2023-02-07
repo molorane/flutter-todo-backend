@@ -23,7 +23,7 @@ paths:
         - Todo
       summary: Find todos by accountId
       description: Find todos by accountId
-      operationId: findAllByAccountId
+      operationId: findAllTodosByAccountId
       parameters:
         - name: userId
           in: path
@@ -134,7 +134,7 @@ paths:
         - Todo
       summary: Restore a deleted Todo
       description: Restore a deleted Todo
-      operationId: restoreDeleted
+      operationId: restoreDeletedTodo
       parameters:
         - name: id
           in: path
@@ -241,7 +241,7 @@ paths:
         - Todo
       summary: Get a Todo By title
       description: Get a Todo
-      operationId: findByTitleContaining
+      operationId: findAllTodosByTitleContaining
       parameters:
         - name: title
           in: path
@@ -352,11 +352,11 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/SortObject'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     PageableObject:
@@ -382,7 +382,7 @@ components:
       properties:
         empty:
           type: boolean
-        sorted:
-          type: boolean
         unsorted:
+          type: boolean
+        sorted:
           type: boolean

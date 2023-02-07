@@ -33,7 +33,7 @@ public class TodoController {
 
     @Operation(summary = "Find todos by accountId", description = "Find todos by accountId")
     @GetMapping("{userId}")
-    public ResponseEntity<List<TodoDTO>> findAllByAccountId(final @PathVariable("userId") Long userId) {
+    public ResponseEntity<List<TodoDTO>> findAllTodosByAccountId(final @PathVariable("userId") Long userId) {
         return ResponseEntity.ok(TodoMapper.INSTANCE.todosToTodoDTOs(todoService.findAllByAccountId(userId)));
     }
 
@@ -65,7 +65,7 @@ public class TodoController {
 
     @Operation(description = "Get a Todo", summary = "Get a Todo By title")
     @GetMapping("{title}/title")
-    public ResponseEntity<List<TodoDTO>> findByTitleContaining(@PathVariable("title") final String title) {
+    public ResponseEntity<List<TodoDTO>> findAllTodosByTitleContaining(@PathVariable("title") final String title) {
         final List<TodoDTO> todos = TodoMapper.INSTANCE.todosToTodoDTOs(todoService.findByTitleContaining(title));
         return new ResponseEntity<>(todos, HttpStatus.OK);
     }
@@ -107,7 +107,7 @@ public class TodoController {
 
     @Operation(description = "Restore a deleted Todo", summary = "Restore a deleted Todo")
     @PutMapping("undo/{id}")
-    public ResponseEntity<?> restoreDeleted(@PathVariable("id") final Long id) {
+    public ResponseEntity<?> restoreDeletedTodo(@PathVariable("id") final Long id) {
         todoService.restoreDeleted(id);
         return new ResponseEntity<>("Todo restored", HttpStatus.OK);
     }
