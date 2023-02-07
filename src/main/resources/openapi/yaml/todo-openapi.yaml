@@ -18,36 +18,6 @@ tags:
     description: Api operations for the todo
 paths:
   /v1/task/{userId}:
-    get:
-      tags:
-        - Todo
-      summary: Find todos by accountId
-      description: Find todos by accountId
-      operationId: findAllTodosByAccountId
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                type: string
     put:
       tags:
         - Todo
@@ -198,6 +168,37 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PageTodoDTO'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+  /v1/task/{userId}/user:
+    get:
+      tags:
+        - Todo
+      summary: Find todos by userId
+      description: Find todos by userId
+      operationId: findAllTodosByAccountId
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
         '204':
           description: No Content
         '404':
@@ -367,22 +368,22 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/SortObject'
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
         pageNumber:
           type: integer
           format: int32
         pageSize:
           type: integer
           format: int32
-        paged:
-          type: boolean
-        unpaged:
-          type: boolean
     SortObject:
       type: object
       properties:
         empty:
           type: boolean
-        unsorted:
-          type: boolean
         sorted:
+          type: boolean
+        unsorted:
           type: boolean

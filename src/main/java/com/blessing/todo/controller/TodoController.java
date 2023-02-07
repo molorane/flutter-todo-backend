@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @Operation(summary = "Find todos by userId", description = "Find todos by userId")
-    @GetMapping("{userId}/user")
+    @GetMapping(value = "{userId}/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TodoDTO>> findAllTodosByAccountId(final @PathVariable("userId") Long userId) {
         return ResponseEntity.ok(TodoMapper.INSTANCE.todosToTodoDTOs(todoService.findAllByAccountId(userId)));
     }
@@ -44,7 +45,7 @@ public class TodoController {
             @ApiResponse(responseCode = "405", description = "Validation exception")}
     )
     @Operation(summary = "Add a todo", description = "Add a todo")
-    @PostMapping("{userId}")
+    @PostMapping(value = "{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TodoDTO> addTodo(@RequestBody @Valid final TodoDTO todoDTO, final @PathVariable("userId") Long userId) {
         return ResponseEntity.ok(TodoMapper.INSTANCE.todoToTodoDTO(
                 TodoMapper.INSTANCE.todoDTOToTodo(todoDTO, userId))
@@ -56,7 +57,7 @@ public class TodoController {
             @ApiResponse(responseCode = "200", description = "Get Todo By Id"),
             @ApiResponse(responseCode = "404", description = "Todo not found")
     })
-    @GetMapping("{todoId}")
+    @GetMapping(value = "{todoId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TodoDTO> findTodoById(@PathVariable("todoId") final Long todoId) {
         final TodoDTO todoDTO = TodoMapper.INSTANCE.todoToTodoDTO(todoService.findById(todoId)
                 .orElseThrow(() -> new DataNotFoundException("Church not found")));
@@ -64,14 +65,14 @@ public class TodoController {
     }
 
     @Operation(description = "Get a Todo", summary = "Get a Todo By title")
-    @GetMapping("{title}/title")
+    @GetMapping(value = "{title}/title", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TodoDTO>> findAllTodosByTitleContaining(@PathVariable("title") final String title) {
         final List<TodoDTO> todos = TodoMapper.INSTANCE.todosToTodoDTOs(todoService.findByTitleContaining(title));
         return new ResponseEntity<>(todos, HttpStatus.OK);
     }
 
     @Operation(description = "Get Todos", summary = "Get Todos in pages")
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Page<TodoDTO>> findTodos(
             @RequestParam(defaultValue = "0") final Integer pageNo,
@@ -88,7 +89,7 @@ public class TodoController {
     }
 
     @Operation(description = "Update a Todo", summary = "Update Todo")
-    @PutMapping("{userId}")
+    @PutMapping(value = "{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TodoDTO> updateTodo(@RequestBody @Valid final TodoDTO todoDTO, final @PathVariable("userId") Long userId) {
         final TodoDTO todo = TodoMapper.INSTANCE.todoToTodoDTO(
                 todoService.save(
@@ -99,14 +100,14 @@ public class TodoController {
     }
 
     @Operation(description = "Delete a Todo", summary = "Delete a Todo By Id")
-    @DeleteMapping("{id}")
+    @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteTodoById(@PathVariable("id") final Long id) {
         todoService.deleteById(id);
         return new ResponseEntity<>("Todo Deleted", HttpStatus.OK);
     }
 
     @Operation(description = "Restore a deleted Todo", summary = "Restore a deleted Todo")
-    @PutMapping("undo/{id}")
+    @PutMapping(value = "undo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> restoreDeletedTodo(@PathVariable("id") final Long id) {
         todoService.restoreDeleted(id);
         return new ResponseEntity<>("Todo restored", HttpStatus.OK);
