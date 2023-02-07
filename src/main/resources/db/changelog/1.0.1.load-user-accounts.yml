@@ -1,0 +1,125 @@
+databaseChangeLog:
+    - changeSet:
+          id: 1.0.1.load-roles
+          author: Mothusi Molorane
+          changes:
+              - loadData:
+                    columns:
+                        - column:
+                              name: id
+                              type: numeric
+                        - column:
+                              name: name
+                              type: string
+                        - column:
+                              name: desc
+                              type: string
+                    encoding: UTF-8
+                    file: data/roles.csv
+                    quotchar: ''''
+                    relativeToChangelogFile: true
+                    separator: ','
+                    tableName: app_role
+                    usePreparedStatements: true
+    - changeSet:
+          id: 2.1.5.load-accounts
+          author: Mothusi Molorane
+          changes:
+              - loadData:
+                    columns:
+                        - column:
+                              name: id
+                              type: numeric
+                        - column:
+                              name: username
+                              type: string
+                        - column:
+                              name: email
+                              type: string
+                        - column:
+                              name: password
+                              type: string
+                        - column:
+                              name: abv
+                              type: string
+                        - column:
+                              name: status
+                              type: numeric
+                        - column:
+                              name: is_locked
+                              type: boolean
+                        - column:
+                              name: is_active
+                              type: boolean
+                        - column:
+                              name: created_date
+                              type: date
+                        - column:
+                              name: expiry_date
+                              type: date
+                    encoding: UTF-8
+                    file: data/accounts.csv
+                    relativeToChangelogFile: true
+                    separator: ','
+                    tableName: account
+                    usePreparedStatements: true
+    - changeSet:
+          id: 2.1.5.load-account-info
+          author: Mothusi Molorane
+          changes:
+              - loadData:
+                    columns:
+                        - column:
+                              name: user_id
+                              type: numeric
+                        - column:
+                              name: last_name
+                              type: string
+                        - column:
+                              name: first_name
+                              type: string
+                        - column:
+                              name: other_name
+                              type: string
+                        - column:
+                              name: dob
+                              type: date
+                        - column:
+                              name: gender
+                              type: string
+                        - column:
+                              name: profile
+                              type: string
+                        - column:
+                              name: birth_city
+                              type: numeric
+                        - column:
+                              name: mother_tongue
+                              type: numeric
+                        - column:
+                              name: recorded_by
+                              type: numeric
+                    encoding: UTF-8
+                    file: data/account-info.csv
+                    relativeToChangelogFile: true
+                    separator: ','
+                    tableName: account_info
+                    usePreparedStatements: true
+    - changeSet:
+          id: 2.1.6.load-account-roles
+          author: Mothusi Molorane
+          changes:
+              - loadData:
+                    columns:
+                        - column:
+                              name: user_id
+                              type: numeric
+                        - column:
+                              name: role_id
+                              type: numeric
+                    encoding: UTF-8
+                    file: data/account-roles.csv
+                    relativeToChangelogFile: true
+                    separator: ','
+                    tableName: account_role
+                    usePreparedStatements: true

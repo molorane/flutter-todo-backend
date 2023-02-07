@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.4.add-unique-account-info-user-id
+      author: Mothusi Molorane
+      changes:
+        - addUniqueConstraint:
+            constraintName: uk_account_info_user_id
+            tableName: account_info
+            columnNames: user_id
+            validate: true

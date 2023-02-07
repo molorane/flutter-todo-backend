@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: /db/changelog/db.create-todo-table-1.0.0.yml
+  - include:
+      file: /db/changelog/1.0.1.load-user-accounts.yml
+  - include:
+      file: /db/changelog/1.0.2.load-todo-data.yml
+  - include:
+      file: /db/changelog/1.0.3.add-unique-key-user-roles.yml
+  - include:
+      file: /db/changelog/1.0.4.add-unique-key-account-info-user-id.yml

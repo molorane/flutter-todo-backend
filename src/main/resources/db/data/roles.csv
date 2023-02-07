@@ -1,0 +1,21 @@
+id,name,desc
+1,ADMIN,A member with the highest role and is reponsible for overrall management of the system.
+2,MEMBER,A member has the lowest role in the system.
+3,SECRETARY,Secretary is responsible for ensuring that church information is always correct
+4,NATIONAL_OVERSEER,Is the pastor who overseers the whole church in the country.
+5,LOCATION_PASTOR,Is the pastor whose responsibility if to overseer the church at a location.
+6,ATTENDANCE_COLLECTION,A member who is responsible for taking church attendance.
+7,ATTENDANCE_SIGNATORY,A member responsible for signing an attendance
+8,NATIONAL_CAMPUS_PASTOR,A user who overseers all campuses in the country.
+9,CAMPUS_PASTOR,Is a pastor who looks after a church at a university.
+10,COUNTRY_ADMIN,A member that is responsible for creating other roles in the country
+11,STATE_ADMIN,A member that is responsible for the State data and adding users in the state.
+12,TITHE_OFFERING_COLLECTION,A member that is responsible for collecting tithe and offering of a particular church.
+13,TITHE_OFFERING_SIGNATORY,A member responsible for signing an tithe or offering
+14,STATE_PASTOR,A pastor who overseers the state churches.
+15,STATE_BURSOR,A member that overseers the state funds.
+16,NATIONAL_BURSOR,A member that overseers the funds of the whole church in a particular country.
+17,NATIONAL_YOUTH_PASTOR,A pastor that overseers youth ministry of the particular country.
+18,STATE_YOUTH_PASTOR,A pastor that overseers the youth ministry of the particular state in the country.
+19,LOCATION_YOUTH_PASTOR,A pastor that overseers the youth ministry of the particular church location.
+20,GS,A founder and the general overseer of the entire church ministry.

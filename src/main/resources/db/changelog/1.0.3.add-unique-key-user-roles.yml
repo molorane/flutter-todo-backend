@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.3.add-unique-account-role
+      author: Mothusi Molorane
+      changes:
+        - addUniqueConstraint:
+            constraintName: uk_account_role
+            tableName: account_role
+            columnNames: user_id, role_id
+            validate: true

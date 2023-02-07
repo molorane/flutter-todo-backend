@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2.1.0.load-todos
+      author: Mothusi Molorane
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  name: user_id
+                  type: numeric
+              - column:
+                  name: todo_type
+                  type: string
+              - column:
+                  name: title
+                  type: string
+              - column:
+                  name: completed
+                  type: boolean
+              - column:
+                  name: due_date
+                  type: date
+              - column:
+                  name: description
+                  type: string
+            encoding: UTF-8
+            file: data/todos.csv
+            relativeToChangelogFile: true
+            separator: ','
+            tableName: todo

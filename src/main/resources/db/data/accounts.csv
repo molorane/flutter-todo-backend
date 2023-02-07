@@ -1,0 +1,6 @@
+id,username,email,password,status,is_locked,is_active,created_date,expiry_date
+2014098614,madw,madw@dclm.org,$2a$10$RDME3UDBPdx/VWsy4qPdhe/T93.dUj3dVybe0QH9lEOnGK5Js3W3W,1,0,1,2020-09-22 19:39:28,2020-10-22
+2014098615,admin,admin@plugit.co.za,$2a$10$RDME3UDBPdx/VWsy4qPdhe/T93.dUj3dVybe0QH9lEOnGK5Js3W3W,1,0,1,2020-09-22 19:39:28,2020-10-22
+2014098616,nomfundo,nomfundo@gmail.com,$2a$10$RDME3UDBPdx/VWsy4qPdhe/T93.dUj3dVybe0QH9lEOnGK5Js3W3W,1,0,1,2020-09-22 19:39:28,2020-10-22
+2014098617,fedora,fedora@plugit.co.za,$2a$10$BYnzUkQZ7TobHTQBQBQf7u/t1Vy7XpLsUIYT6NA.mEO0CE/iwxeZ6,1,0,1,2020-09-22 19:39:28,2020-10-22
+2014098618,blessy,blessy@plugit.co.za,$2a$10$RDME3UDBPdx/VWsy4qPdhe/T93.dUj3dVybe0QH9lEOnGK5Js3W3W,1,0,1,2020-09-22 19:39:28,2020-10-22
