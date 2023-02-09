@@ -14,7 +14,7 @@ public interface AbstractService<T> {
         throw new RuntimeException("You need to implement this method to save an entity.");
     }
 
-    Page<T> findEntities(final Pageable pageable);
+    Page<T> findAll(final Pageable pageable);
 
     default void deleteById(final Long id) {
         throw new RuntimeException("You need to implement this method to delete an entity.");

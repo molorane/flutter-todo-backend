@@ -8,18 +8,25 @@ import java.util.List;
 
 public interface TodoRepository extends AbstractRepository<Todo> {
 
-    List<Todo> findTodoByTitleContaining(String title);
+    List<Todo> findTodoByTitleContainingIgnoreCase(String title);
 
     List<Todo> findAllByCompleted(boolean completed);
 
-    List<Todo> findAllByAccountIdOrderByIdDesc(Long userId);
+    List<Todo> findAllByAccountIdAndCompletedIsFalseOrderByIdDesc(Long userId);
 
     @Modifying
-    @Query("update Todo a SET a.deleted = true where a.id = :id")
+    @Query("UPDATE Todo a SET a.deleted = true WHERE a.id = :id")
     void deleteTodoById(Long id);
 
     @Modifying
-    @Query("update Todo a SET a.deleted = false where a.id = :id")
-    void restoreDeleted(Long id);
+    @Query("UPDATE Todo a SET a.deleted = false WHERE a.id = :id AND a.account.id = :userId")
+    void restoreDeletedTodo(Long id, Long userId);
 
+    @Modifying
+    @Query("UPDATE Todo a SET a.deleted = false WHERE a.id = :id AND a.account.id = :userId")
+    void deleteByIdAndAccountId(Long id, Long userId);
+
+    @Modifying
+    @Query("UPDATE Todo a SET a.deleted = true WHERE a.account.id = :userId")
+    void deleteByAccountId(Long userId);
 }

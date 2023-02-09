@@ -175,6 +175,7 @@
 								<additionalModelTypeAnnotations>@lombok.Builder @lombok.NoArgsConstructor @lombok.AllArgsConstructor</additionalModelTypeAnnotations>
 								<useTags>true</useTags>
 								<useSpringBoot3>true</useSpringBoot3>
+								<serializableModel>true</serializableModel>
 								<apiPackage>com.blessing.todo.api</apiPackage>
 								<modelPackage>com.blessing.todo.model</modelPackage>
 								<generateSupportingFiles>true</generateSupportingFiles>

@@ -1,17 +1,11 @@
-package com.blessing.todo.service;
+package com.blessing.todo.delegate;
 
 import com.blessing.todo.api.TodoApiDelegate;
-import com.blessing.todo.entity.Todo;
 import com.blessing.todo.exception.DataNotFoundException;
 import com.blessing.todo.mapper.TodoMapper;
-import com.blessing.todo.model.PageTodoDTO;
 import com.blessing.todo.model.TodoDTO;
-import com.blessing.todo.repository.TodoRepository;
-import com.blessing.todo.util.PageableUtil;
+import com.blessing.todo.service.TodoService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,35 +16,41 @@ import java.util.List;
 @AllArgsConstructor
 public class TodoApiDelegateImpl implements TodoApiDelegate {
 
-    private TodoRepository todoRepository;
+    private TodoService todoService;
 
     @Override
     public ResponseEntity<TodoDTO> addTodo(Long userId, TodoDTO todoDTO) {
         return ResponseEntity.ok(TodoMapper.INSTANCE.todoToTodoDTO(
-                TodoMapper.INSTANCE.todoDTOToTodo(todoDTO, userId))
+                todoService.save(TodoMapper.INSTANCE.todoDTOToTodo(todoDTO, userId)))
         );
     }
 
     @Override
-    public ResponseEntity<Object> deleteTodoById(Long id) {
-         todoRepository.deleteById(id);
+    public ResponseEntity<Object> deleteTodo(Long id, Long userId) {
+        todoService.deleteByIdAndAccountId(id, userId);
         return new ResponseEntity<>("Todo Deleted", HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<TodoDTO>> findAllTodosByAccountId(Long userId) {
-        return ResponseEntity.ok(TodoMapper.INSTANCE.todosToTodoDTOs(todoRepository.findAllByAccountIdOrderByIdDesc(userId)));
+        return ResponseEntity.ok(
+                TodoMapper.INSTANCE.todosToTodoDTOs(
+                        todoService.findAllTodosByAccountId(userId)
+                )
+        );
     }
 
     @Override
     public ResponseEntity<List<TodoDTO>> findAllTodosByTitleContaining(String title) {
-        final List<TodoDTO> todos = TodoMapper.INSTANCE.todosToTodoDTOs(todoRepository.findTodoByTitleContaining(title));
+        final List<TodoDTO> todos = TodoMapper.INSTANCE.todosToTodoDTOs(
+                todoService.findByTitleContaining(title)
+        );
         return new ResponseEntity<>(todos, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<TodoDTO> findTodoById(Long todoId) {
-        final TodoDTO todoDTO = TodoMapper.INSTANCE.todoToTodoDTO(todoRepository.findById(todoId)
+        final TodoDTO todoDTO = TodoMapper.INSTANCE.todoToTodoDTO(todoService.findById(todoId)
                 .orElseThrow(() -> new DataNotFoundException("Church not found")));
         return new ResponseEntity<>(todoDTO, HttpStatus.OK);
     }
@@ -66,15 +66,15 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
 //    }
 
     @Override
-    public ResponseEntity<Object> restoreDeletedTodo(Long id) {
-        todoRepository.restoreDeleted(id);
+    public ResponseEntity<Object> restoreDeletedTodo(Long id, Long userId) {
+        todoService.restoreDeletedTodo(id, userId);
         return new ResponseEntity<>("Todo restored", HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<TodoDTO> updateTodo(Long userId, TodoDTO todoDTO) {
         final TodoDTO todo = TodoMapper.INSTANCE.todoToTodoDTO(
-                todoRepository.save(
+                todoService.save(
                         TodoMapper.INSTANCE.todoDTOToTodo(todoDTO, userId)
                 )
         );

@@ -98,7 +98,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoDTO'
-  /v1/task/undo/{id}:
+  /v1/task/undo/:
     put:
       tags:
         - Todo
@@ -106,8 +106,14 @@ paths:
       description: Restore a deleted Todo
       operationId: restoreDeletedTodo
       parameters:
-        - name: id
-          in: path
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: userId
           required: true
           schema:
             type: integer
@@ -266,16 +272,22 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/{id}:
+  /v1/task/:
     delete:
       tags:
         - Todo
       summary: Delete a Todo By Id
       description: Delete a Todo
-      operationId: deleteTodoById
+      operationId: deleteTodo
       parameters:
-        - name: id
-          in: path
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: userId
           required: true
           schema:
             type: integer
