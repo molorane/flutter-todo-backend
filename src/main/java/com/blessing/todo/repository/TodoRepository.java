@@ -12,7 +12,7 @@ public interface TodoRepository extends AbstractRepository<Todo> {
 
     List<Todo> findAllByCompleted(boolean completed);
 
-    List<Todo> findAllByAccountIdAndCompletedIsFalseOrderByIdDesc(Long userId);
+    List<Todo> findAllByAccountIdOrderByIdDesc(Long userId);
 
     @Modifying
     @Query("UPDATE Todo a SET a.deleted = true WHERE a.id = :id")

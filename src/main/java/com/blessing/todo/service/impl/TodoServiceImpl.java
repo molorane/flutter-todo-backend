@@ -21,7 +21,7 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<Todo> findAllTodosByAccountId(Long userId) {
-        return todoRepository.findAllByAccountIdAndCompletedIsFalseOrderByIdDesc(userId);
+        return todoRepository.findAllByAccountIdOrderByIdDesc(userId);
     }
 
     @Override
