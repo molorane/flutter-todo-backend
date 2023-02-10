@@ -106,14 +106,14 @@ paths:
       description: Restore a deleted Todo
       operationId: restoreDeletedTodo
       parameters:
-        - in: query
-          name: id
+        - name: id
+          in: query
           required: true
           schema:
             type: integer
             format: int64
-        - in: query
-          name: userId
+        - name: userId
+          in: query
           required: true
           schema:
             type: integer
@@ -124,7 +124,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/ResponseMessage'
         '204':
           description: No Content
         '404':
@@ -278,16 +278,16 @@ paths:
         - Todo
       summary: Delete a Todo By Id
       description: Delete a Todo
-      operationId: deleteTodo
+      operationId: deleteTodoById
       parameters:
-        - in: query
-          name: id
+        - name: id
+          in: query
           required: true
           schema:
             type: integer
             format: int64
-        - in: query
-          name: userId
+        - name: userId
+          in: query
           required: true
           schema:
             type: integer
@@ -298,7 +298,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/ResponseMessage'
         '204':
           description: No Content
         '404':
@@ -340,6 +340,16 @@ components:
           format: date-time
         deleted:
           type: boolean
+    ResponseMessage:
+      type: object
+      properties:
+        message:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
     PageTodoDTO:
       type: object
       properties:

@@ -3,6 +3,7 @@ package com.blessing.todo.delegate;
 import com.blessing.todo.api.TodoApiDelegate;
 import com.blessing.todo.exception.DataNotFoundException;
 import com.blessing.todo.mapper.TodoMapper;
+import com.blessing.todo.model.ResponseMessage;
 import com.blessing.todo.model.TodoDTO;
 import com.blessing.todo.service.TodoService;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,9 +28,12 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<Object> deleteTodo(Long id, Long userId) {
+    public ResponseEntity<ResponseMessage> deleteTodoById(Long id, Long userId) {
         todoService.deleteByIdAndAccountId(id, userId);
-        return new ResponseEntity<>("Todo Deleted", HttpStatus.OK);
+        return new ResponseEntity<>(
+                new ResponseMessage().message("Todo Deleted").date(LocalDateTime.now()),
+                HttpStatus.OK
+        );
     }
 
     @Override
@@ -66,9 +71,12 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
 //    }
 
     @Override
-    public ResponseEntity<Object> restoreDeletedTodo(Long id, Long userId) {
+    public ResponseEntity<ResponseMessage> restoreDeletedTodo(Long id, Long userId) {
         todoService.restoreDeletedTodo(id, userId);
-        return new ResponseEntity<>("Todo restored", HttpStatus.OK);
+        return new ResponseEntity<>(
+                new ResponseMessage().message("Todo restored").date(LocalDateTime.now()),
+                HttpStatus.OK
+        );
     }
 
     @Override

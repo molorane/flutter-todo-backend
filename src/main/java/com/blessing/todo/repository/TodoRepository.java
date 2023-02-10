@@ -12,7 +12,7 @@ public interface TodoRepository extends AbstractRepository<Todo> {
 
     List<Todo> findAllByCompleted(boolean completed);
 
-    List<Todo> findAllByAccountIdOrderByIdDesc(Long userId);
+    List<Todo> findAllByAccountIdAndDeletedFalseOrderByIdDesc(Long userId);
 
     @Modifying
     @Query("UPDATE Todo a SET a.deleted = true WHERE a.id = :id")
@@ -23,7 +23,7 @@ public interface TodoRepository extends AbstractRepository<Todo> {
     void restoreDeletedTodo(Long id, Long userId);
 
     @Modifying
-    @Query("UPDATE Todo a SET a.deleted = false WHERE a.id = :id AND a.account.id = :userId")
+    @Query("UPDATE Todo a SET a.deleted = true WHERE a.id = :id AND a.account.id = :userId")
     void deleteByIdAndAccountId(Long id, Long userId);
 
     @Modifying
