@@ -10,20 +10,17 @@ app:
     email: molorane.mothusi@gmail.com
     name: Mothusi Molorane
 
+---
 spring:
   application:
     name: todo
-
----
----
-spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yml
     enabled: true
   datasource:
     username: root
     password: blessing
-    url: jdbc:mysql://localhost:3306/todos?serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/tododb?serverTimezone=UTC&createDatabaseIfNotExist=true
   jpa:
     show-sql: true
     properties:

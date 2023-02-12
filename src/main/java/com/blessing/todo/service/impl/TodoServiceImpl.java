@@ -3,6 +3,7 @@ package com.blessing.todo.service.impl;
 import com.blessing.todo.entity.Todo;
 import com.blessing.todo.repository.TodoRepository;
 import com.blessing.todo.service.TodoService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,13 +14,14 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class TodoServiceImpl implements TodoService {
 
     private TodoRepository todoRepository;
 
     @Override
-    public List<Todo> findAllByAccountId(Long userId) {
-        return todoRepository.findAllByAccountIdOrderByIdDesc(userId);
+    public List<Todo> findAllTodosByAccountId(Long userId) {
+        return todoRepository.findAllByAccountIdAndDeletedFalseOrderByIdDesc(userId);
     }
 
     @Override
@@ -28,22 +30,37 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<Todo> findByNameContaining(String name) {
-        return todoRepository.findTodoByTitleContaining(name);
+    public List<Todo> findByTitleContaining(String title) {
+        return todoRepository.findTodoByTitleContainingIgnoreCase(title);
     }
 
     @Override
-    public Page<Todo> findEntities(Pageable pageable) {
+    public Page<Todo> findAll(Pageable pageable) {
         return todoRepository.findAll(pageable);
     }
 
     @Override
-    public Todo save(Todo todo, Long userId) {
+    public Todo save(Todo todo) {
         return todoRepository.save(todo);
     }
 
     @Override
     public void deleteById(Long id) {
-        TodoService.super.deleteById(id);
+        todoRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByIdAndAccountId(Long id, Long userId) {
+        todoRepository.deleteByIdAndAccountId(id, userId);
+    }
+
+    @Override
+    public void deleteByAccountId(Long userId) {
+        todoRepository.deleteByAccountId(userId);
+    }
+
+    @Override
+    public void restoreDeletedTodo(Long id, Long userId) {
+        todoRepository.restoreDeletedTodo(id, userId);
     }
 }

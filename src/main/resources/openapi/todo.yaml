@@ -1,0 +1,469 @@
+openapi: 3.0.1
+info:
+  title: Todo Service API
+  description: This is an api-spec for `todo` service.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Mothusi Molorane
+    email: molorane.mothusi@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: 0.0.1
+servers:
+  - url: http://localhost:2023/todo
+    description: Generated server url
+tags:
+  - name: Todo
+    description: Api operations for the todo
+paths:
+  /todo/v1/task/{userId}:
+    put:
+      tags:
+        - Todo
+      summary: Update Todo
+      description: Update a Todo
+      operationId: updateTodo
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+        - Todo
+      summary: Add a todo
+      description: Add a todo
+      operationId: addTodo
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoDTO'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+        '204':
+          description: No Content
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+        '404':
+          description: Todo not found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+  /todo/v1/task/restore_deleted_todo/:
+    put:
+      tags:
+        - Todo
+      summary: Restore a deleted Todo
+      description: Restore a deleted Todo
+      operationId: restoreDeletedTodo
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+  /todo/v1/task:
+    get:
+      tags:
+        - Todo
+      summary: Get Todos in pages
+      description: Get Todos
+      operationId: findTodos
+      parameters:
+        - name: pageNo
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: sortBy
+          in: query
+          required: false
+          schema:
+            type: string
+            default: name
+        - name: dir
+          in: query
+          required: false
+          schema:
+            type: string
+            default: asc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageTodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTodoDTO'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+  /todo/v1/task/{userId}/user:
+    get:
+      tags:
+        - Todo
+      summary: Find todos by userId
+      description: Find todos by userId
+      operationId: findAllTodosByAccountId
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+  /todo/v1/task/{todoId}:
+    get:
+      tags:
+        - Todo
+      summary: Get Todo By Id
+      description: Get Todo
+      operationId: findTodoById
+      parameters:
+        - name: todoId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Get Todo By Id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+        '204':
+          description: No Content
+        '404':
+          description: Todo not found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+  /todo/v1/task/{title}/title:
+    get:
+      tags:
+        - Todo
+      summary: Get a Todo By title
+      description: Get a Todo
+      operationId: findAllTodosByTitleContaining
+      parameters:
+        - name: title
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+  /todo/v1/task/:
+    delete:
+      tags:
+        - Todo
+      summary: Delete a Todo By Id
+      description: Delete a Todo
+      operationId: deleteTodoById
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    TodoDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        todoType:
+          type: string
+          enum:
+            - PRAYER
+            - GYM
+            - EVANGELISM
+            - FLUTTER
+            - SPRING
+            - STUDY
+            - FOOD
+            - ENTERTAINMENT
+        title:
+          type: string
+        completed:
+          type: boolean
+        dueDate:
+          type: string
+          format: date
+        description:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        deleted:
+          type: boolean
+    ResponseMessage:
+      type: object
+      properties:
+        message:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+    PageTodoDTO:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/TodoDTO'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        unsorted:
+          type: boolean
+        sorted:
+          type: boolean

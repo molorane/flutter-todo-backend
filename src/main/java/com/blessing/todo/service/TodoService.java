@@ -4,13 +4,15 @@ import com.blessing.todo.entity.Todo;
 
 import java.util.List;
 
-
 public interface TodoService extends AbstractService<Todo> {
 
+    List<Todo> findAllTodosByAccountId(final Long userId);
 
-    List<Todo> findAllByAccountId(final Long userId);
+    List<Todo> findByTitleContaining(String name);
 
-    default Todo save(final Todo todo, Long userId) {
-        throw new RuntimeException("You need to implement this method to save an entity.");
-    }
+    void deleteByIdAndAccountId(final Long id, Long userId);
+
+    void deleteByAccountId(Long userId);
+
+    void restoreDeletedTodo(Long id, Long userId);
 }

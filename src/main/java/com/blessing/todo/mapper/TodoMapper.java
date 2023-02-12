@@ -2,7 +2,7 @@ package com.blessing.todo.mapper;
 
 import com.blessing.todo.entity.Account;
 import com.blessing.todo.entity.Todo;
-import com.blessing.todo.mapper.destination.TodoDTO;
+import com.blessing.todo.model.TodoDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
