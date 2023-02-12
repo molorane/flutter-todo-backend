@@ -17,7 +17,7 @@ tags:
   - name: Todo
     description: Api operations for the todo
 paths:
-  /v1/task/{userId}:
+  /todo/v1/task/{userId}:
     put:
       tags:
         - Todo
@@ -44,11 +44,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
         '204':
           description: No Content
         '404':
           description: Not Found
           content:
+            application/json:
+              schema:
+                type: string
             '*/*':
               schema:
                 type: string
@@ -78,6 +84,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
         '204':
           description: No Content
         '400':
@@ -86,9 +95,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
         '404':
           description: Todo not found
           content:
+            application/json:
+              schema:
+                type: string
             '*/*':
               schema:
                 type: string
@@ -98,7 +113,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoDTO'
-  /v1/task/undo/:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+  /todo/v1/task/restore_deleted_todo/:
     put:
       tags:
         - Todo
@@ -125,15 +143,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseMessage'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
         '204':
           description: No Content
         '404':
           description: Not Found
           content:
+            application/json:
+              schema:
+                type: string
             '*/*':
               schema:
                 type: string
-  /v1/task:
+  /todo/v1/task:
     get:
       tags:
         - Todo
@@ -174,15 +198,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PageTodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTodoDTO'
         '204':
           description: No Content
         '404':
           description: Not Found
           content:
+            application/json:
+              schema:
+                type: string
             '*/*':
               schema:
                 type: string
-  /v1/task/{userId}/user:
+  /todo/v1/task/{userId}/user:
     get:
       tags:
         - Todo
@@ -205,15 +235,23 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
         '204':
           description: No Content
         '404':
           description: Not Found
           content:
+            application/json:
+              schema:
+                type: string
             '*/*':
               schema:
                 type: string
-  /v1/task/{todoId}:
+  /todo/v1/task/{todoId}:
     get:
       tags:
         - Todo
@@ -234,15 +272,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
         '204':
           description: No Content
         '404':
           description: Todo not found
           content:
+            application/json:
+              schema:
+                type: string
             '*/*':
               schema:
                 type: string
-  /v1/task/{title}/title:
+  /todo/v1/task/{title}/title:
     get:
       tags:
         - Todo
@@ -264,15 +308,23 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
         '204':
           description: No Content
         '404':
           description: Not Found
           content:
+            application/json:
+              schema:
+                type: string
             '*/*':
               schema:
                 type: string
-  /v1/task/:
+  /todo/v1/task/:
     delete:
       tags:
         - Todo
@@ -299,11 +351,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseMessage'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
         '204':
           description: No Content
         '404':
           description: Not Found
           content:
+            application/json:
+              schema:
+                type: string
             '*/*':
               schema:
                 type: string
