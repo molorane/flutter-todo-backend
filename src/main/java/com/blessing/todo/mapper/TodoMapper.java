@@ -23,7 +23,7 @@ public interface TodoMapper {
     List<TodoDTO> internalsToDTOs(List<Todo> todos);
 
     default Account buildAccount(Long userId) {
-        Account account = new Account();
+        final Account account = new Account();
         account.setId(userId);
         return account;
     }
