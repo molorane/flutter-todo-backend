@@ -76,10 +76,10 @@ public class Account extends AbstractEntity {
     }
 
     public boolean hasRole(String userRole) {
-        return (roles.stream()
+        return roles.stream()
                 .filter(role -> userRole.equals(role.getRole()))
                 .findAny()
-                .orElse(null) != null);
+                .orElse(null) != null;
     }
 
 }

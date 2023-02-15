@@ -1,6 +1,7 @@
 package com.blessing.todo.service.impl;
 
 import com.blessing.todo.entity.Todo;
+import com.blessing.todo.exception.DataNotFoundException;
 import com.blessing.todo.repository.TodoRepository;
 import com.blessing.todo.service.TodoService;
 import jakarta.transaction.Transactional;
@@ -42,6 +43,17 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public Todo save(Todo todo) {
         return todoRepository.save(todo);
+    }
+
+    @Override
+    public Todo update(Todo todo) {
+        Todo update = findById(todo.getId()).orElseThrow(() -> new DataNotFoundException("An error occurred while updating entity"));
+        update.setTodoType(todo.getTodoType());
+        update.setTitle(todo.getTitle());
+        update.setDescription(todo.getDescription());
+        update.setDueDate(todo.getDueDate());
+        update.setCompleted(todo.getCompleted());
+        return update;
     }
 
     @Override

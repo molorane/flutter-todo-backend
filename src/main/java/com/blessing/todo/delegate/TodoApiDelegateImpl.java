@@ -22,8 +22,8 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
 
     @Override
     public ResponseEntity<TodoDTO> addTodo(Long userId, TodoDTO todoDTO) {
-        return ResponseEntity.ok(TodoMapper.INSTANCE.todoToTodoDTO(
-                todoService.save(TodoMapper.INSTANCE.todoDTOToTodo(todoDTO, userId)))
+        return ResponseEntity.ok(TodoMapper.INSTANCE.internalToDTO(
+                todoService.save(TodoMapper.INSTANCE.dtoToInternal(todoDTO, userId)))
         );
     }
 
@@ -39,7 +39,7 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     @Override
     public ResponseEntity<List<TodoDTO>> findAllTodosByAccountId(Long userId) {
         return ResponseEntity.ok(
-                TodoMapper.INSTANCE.todosToTodoDTOs(
+                TodoMapper.INSTANCE.internalsToDTOs(
                         todoService.findAllTodosByAccountId(userId)
                 )
         );
@@ -47,7 +47,7 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
 
     @Override
     public ResponseEntity<List<TodoDTO>> findAllTodosByTitleContaining(String title) {
-        final List<TodoDTO> todos = TodoMapper.INSTANCE.todosToTodoDTOs(
+        final List<TodoDTO> todos = TodoMapper.INSTANCE.internalsToDTOs(
                 todoService.findByTitleContaining(title)
         );
         return new ResponseEntity<>(todos, HttpStatus.OK);
@@ -55,7 +55,7 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
 
     @Override
     public ResponseEntity<TodoDTO> findTodoById(Long todoId) {
-        final TodoDTO todoDTO = TodoMapper.INSTANCE.todoToTodoDTO(todoService.findById(todoId)
+        final TodoDTO todoDTO = TodoMapper.INSTANCE.internalToDTO(todoService.findById(todoId)
                 .orElseThrow(() -> new DataNotFoundException("Church not found")));
         return new ResponseEntity<>(todoDTO, HttpStatus.OK);
     }
@@ -80,12 +80,12 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<TodoDTO> updateTodo(Long userId, TodoDTO todoDTO) {
-        final TodoDTO todo = TodoMapper.INSTANCE.todoToTodoDTO(
-                todoService.save(
-                        TodoMapper.INSTANCE.todoDTOToTodo(todoDTO, userId)
+    public ResponseEntity<Void> updateTodo(Long userId, TodoDTO todoDTO) {
+        final TodoDTO todo = TodoMapper.INSTANCE.internalToDTO(
+                todoService.update(
+                        TodoMapper.INSTANCE.dtoToInternal(todoDTO, userId)
                 )
         );
-        return new ResponseEntity<>(todo, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

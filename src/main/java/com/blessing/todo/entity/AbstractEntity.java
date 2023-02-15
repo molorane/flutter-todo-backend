@@ -18,17 +18,11 @@ public class AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id = new Random().nextLong(200);
+    protected Long id = new Random().nextLong(200);
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "created_date", unique = true)
     private LocalDateTime createdDate = LocalDateTime.now();
 
     private Boolean deleted = false;
-
-    @PrePersist
-    public void init() {
-        this.createdDate = LocalDateTime.now();
-        this.deleted = false;
-    }
 }

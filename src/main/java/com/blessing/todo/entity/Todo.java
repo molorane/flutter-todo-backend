@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -20,7 +21,14 @@ public class Todo extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private TodoType todoType = TodoType.STUDY;
     private String title;
-    private Boolean completed;
+    private Boolean completed = false;
     private LocalDate dueDate;
     private String description;
+
+    @PrePersist
+    public void init() {
+        this.setCreatedDate(LocalDateTime.now());
+        this.setDeleted(false);
+        this.completed = false;
+    }
 }

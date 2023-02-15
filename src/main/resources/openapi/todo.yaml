@@ -10,14 +10,11 @@ info:
     name: Apache 2.0
     url: http://springdoc.org
   version: 0.0.1
-servers:
-  - url: http://localhost:2023/todo
-    description: Generated server url
 tags:
   - name: Todo
     description: Api operations for the todo
 paths:
-  /todo/v1/task/{userId}:
+  /v1/task/{userId}:
     put:
       tags:
         - Todo
@@ -40,13 +37,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TodoDTO'
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/TodoDTO'
         '204':
           description: No Content
         '404':
@@ -116,7 +106,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TodoDTO'
-  /todo/v1/task/restore_deleted_todo/:
+  /v1/task/restore_deleted_todo/:
     put:
       tags:
         - Todo
@@ -157,7 +147,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /todo/v1/task:
+  /v1/task:
     get:
       tags:
         - Todo
@@ -212,7 +202,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /todo/v1/task/{userId}/user:
+  /v1/task/{userId}/user:
     get:
       tags:
         - Todo
@@ -251,7 +241,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /todo/v1/task/{todoId}:
+  /v1/task/{todoId}:
     get:
       tags:
         - Todo
@@ -286,7 +276,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /todo/v1/task/{title}/title:
+  /v1/task/{title}/title:
     get:
       tags:
         - Todo
@@ -324,7 +314,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /todo/v1/task/:
+  /v1/task/:
     delete:
       tags:
         - Todo
