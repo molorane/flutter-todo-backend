@@ -29,4 +29,6 @@ public interface TodoRepository extends AbstractRepository<Todo> {
     @Modifying
     @Query("UPDATE Todo a SET a.deleted = true WHERE a.account.id = :userId")
     void deleteByAccountId(Long userId);
+
+    Long countByAccountIdAndDeletedTrue(long accountId);
 }

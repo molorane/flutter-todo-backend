@@ -3,7 +3,7 @@ package com.blessing.todo.entity.enums;
 public enum TodoType {
     PRAYER,
     GYM,
-    EVANGELISM,
+    PREACH,
     FLUTTER,
     SPRING,
     STUDY,

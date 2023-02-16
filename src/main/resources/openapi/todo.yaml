@@ -13,6 +13,8 @@ info:
 tags:
   - name: Todo
     description: Api operations for the todo
+  - name: Dashboard
+    description: Api generates data for dashboard
 paths:
   /v1/task/{userId}:
     put:
@@ -28,6 +30,7 @@ paths:
           schema:
             type: integer
             format: int64
+            default: 2014098616
       requestBody:
         content:
           application/json:
@@ -61,6 +64,7 @@ paths:
           schema:
             type: integer
             format: int64
+            default: 2014098616
       requestBody:
         content:
           application/json:
@@ -106,7 +110,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TodoDTO'
-  /v1/task/restore_deleted_todo/:
+  /v1/task/restore-deleted-todo/:
     put:
       tags:
         - Todo
@@ -126,6 +130,7 @@ paths:
           schema:
             type: integer
             format: int64
+            default: 2014098616
       responses:
         '200':
           description: OK
@@ -216,6 +221,7 @@ paths:
           schema:
             type: integer
             format: int64
+            default: 2014098616
       responses:
         '200':
           description: OK
@@ -255,6 +261,7 @@ paths:
           schema:
             type: integer
             format: int64
+            default: 2
       responses:
         '200':
           description: Get Todo By Id
@@ -334,6 +341,7 @@ paths:
           schema:
             type: integer
             format: int64
+            default: 2014098616
       responses:
         '200':
           description: OK
@@ -344,6 +352,72 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ResponseMessage'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+  /v1/task/{userId}/uploadProfile:
+    post:
+      tags:
+        - Todo
+      summary: uploads an image
+      description: ''
+      operationId: uploadFile
+      parameters:
+        - name: userId
+          in: path
+          description: UserId of a user to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 2014098616
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                profileImage:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+  /v1/task/dashboard/deleted-todo/{userId}:
+    get:
+      tags:
+        - Dashboard
+      summary: Count all deleted todos
+      description: Count all deleted todos
+      operationId: countDeletedTodosByAccountId
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 2014098616
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
         '204':
           description: No Content
         '404':
@@ -368,7 +442,7 @@ components:
           enum:
             - PRAYER
             - GYM
-            - EVANGELISM
+            - PREACH
             - FLUTTER
             - SPRING
             - STUDY

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -87,5 +88,10 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
                 )
         );
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Override
+    public ResponseEntity<ResponseMessage> uploadFile(Long userId, MultipartFile profileImage) {
+        return TodoApiDelegate.super.uploadFile(userId, profileImage);
     }
 }

@@ -75,4 +75,9 @@ public class TodoServiceImpl implements TodoService {
     public void restoreDeletedTodo(Long id, Long userId) {
         todoRepository.restoreDeletedTodo(id, userId);
     }
+
+    @Override
+    public Long countDeletedTodosByAccountId(long accountId) {
+        return todoRepository.countByAccountIdAndDeletedTrue(accountId);
+    }
 }

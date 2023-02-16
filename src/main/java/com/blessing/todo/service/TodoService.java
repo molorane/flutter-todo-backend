@@ -15,4 +15,6 @@ public interface TodoService extends AbstractService<Todo> {
     void deleteByAccountId(Long userId);
 
     void restoreDeletedTodo(Long id, Long userId);
+
+    Long countDeletedTodosByAccountId(long accountId);
 }
