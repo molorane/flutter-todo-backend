@@ -137,10 +137,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseMessage'
+                $ref: '#/components/schemas/DefaultResponse'
             '*/*':
               schema:
-                $ref: '#/components/schemas/ResponseMessage'
+                $ref: '#/components/schemas/DefaultResponse'
         '204':
           description: No Content
         '404':
@@ -348,10 +348,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseMessage'
+                $ref: '#/components/schemas/DefaultResponse'
             '*/*':
               schema:
-                $ref: '#/components/schemas/ResponseMessage'
+                $ref: '#/components/schemas/DefaultResponse'
         '204':
           description: No Content
         '404':
@@ -394,7 +394,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseMessage'
+                $ref: '#/components/schemas/DefaultResponse'
   /v1/task/dashboard/deleted-todo/{userId}:
     get:
       tags:
@@ -462,7 +462,7 @@ components:
           format: date-time
         deleted:
           type: boolean
-    ResponseMessage:
+    DefaultResponse:
       type: object
       properties:
         message:

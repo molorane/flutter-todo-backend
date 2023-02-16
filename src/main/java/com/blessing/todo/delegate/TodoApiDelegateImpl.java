@@ -3,7 +3,7 @@ package com.blessing.todo.delegate;
 import com.blessing.todo.api.TodoApiDelegate;
 import com.blessing.todo.exception.DataNotFoundException;
 import com.blessing.todo.mapper.TodoMapper;
-import com.blessing.todo.model.ResponseMessage;
+import com.blessing.todo.model.DefaultResponse;
 import com.blessing.todo.model.TodoDTO;
 import com.blessing.todo.service.TodoService;
 import lombok.AllArgsConstructor;
@@ -29,10 +29,10 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<ResponseMessage> deleteTodoById(Long id, Long userId) {
+    public ResponseEntity<DefaultResponse> deleteTodoById(Long id, Long userId) {
         todoService.deleteByIdAndAccountId(id, userId);
         return new ResponseEntity<>(
-                new ResponseMessage().message("Todo Deleted").date(LocalDateTime.now()),
+                new DefaultResponse().message("Todo Deleted").date(LocalDateTime.now()),
                 HttpStatus.OK
         );
     }
@@ -72,10 +72,10 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
 //    }
 
     @Override
-    public ResponseEntity<ResponseMessage> restoreDeletedTodo(Long id, Long userId) {
+    public ResponseEntity<DefaultResponse> restoreDeletedTodo(Long id, Long userId) {
         todoService.restoreDeletedTodo(id, userId);
         return new ResponseEntity<>(
-                new ResponseMessage().message("Todo restored").date(LocalDateTime.now()),
+                new DefaultResponse().message("Todo restored").date(LocalDateTime.now()),
                 HttpStatus.OK
         );
     }
@@ -91,7 +91,7 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<ResponseMessage> uploadFile(Long userId, MultipartFile profileImage) {
+    public ResponseEntity<DefaultResponse> uploadFile(Long userId, MultipartFile profileImage) {
         return TodoApiDelegate.super.uploadFile(userId, profileImage);
     }
 }
