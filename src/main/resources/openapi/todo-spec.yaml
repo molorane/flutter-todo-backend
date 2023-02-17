@@ -10,11 +10,14 @@ info:
     name: Apache 2.0
     url: http://springdoc.org
   version: 0.0.1
+servers:
+  - url: http://localhost:2023
+    description: Generated server url
 tags:
-  - name: Todo
-    description: Api operations for the todo
   - name: Dashboard
     description: Api generates data for dashboard
+  - name: Todo
+    description: Api operations for the todo
 paths:
   /v1/task/{userId}:
     put:
@@ -30,7 +33,6 @@ paths:
           schema:
             type: integer
             format: int64
-            default: 2014098616
       requestBody:
         content:
           application/json:
@@ -124,6 +126,7 @@ paths:
           schema:
             type: integer
             format: int64
+            default: 1
         - name: userId
           in: query
           required: true
@@ -149,6 +152,45 @@ paths:
             application/json:
               schema:
                 type: string
+            '*/*':
+              schema:
+                type: string
+  /v1/task/{userId}/uploadProfile:
+    post:
+      tags:
+        - Todo
+      summary: uploads an image
+      operationId: uploadFile
+      parameters:
+        - name: userId
+          in: path
+          description: UserId of a user to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 2014098616
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                profileImage:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultResponse'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
             '*/*':
               schema:
                 type: string
@@ -261,7 +303,7 @@ paths:
           schema:
             type: integer
             format: int64
-            default: 2
+            default: 1
       responses:
         '200':
           description: Get Todo By Id
@@ -321,80 +363,6 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/:
-    delete:
-      tags:
-        - Todo
-      summary: Delete a Todo By Id
-      description: Delete a Todo
-      operationId: deleteTodoById
-      parameters:
-        - name: id
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: userId
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int64
-            default: 2014098616
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DefaultResponse'
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/DefaultResponse'
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: string
-            '*/*':
-              schema:
-                type: string
-  /v1/task/{userId}/uploadProfile:
-    post:
-      tags:
-        - Todo
-      summary: uploads an image
-      description: ''
-      operationId: uploadFile
-      parameters:
-        - name: userId
-          in: path
-          description: UserId of a user to update
-          required: true
-          schema:
-            type: integer
-            format: int64
-            default: 2014098616
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                profileImage:
-                  type: string
-                  format: binary
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DefaultResponse'
   /v1/task/dashboard/deleted-todo/{userId}:
     get:
       tags:
@@ -418,6 +386,53 @@ paths:
               schema:
                 type: integer
                 format: int64
+            '*/*':
+              schema:
+                type: integer
+                format: int64
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+  /v1/task/:
+    delete:
+      tags:
+        - Todo
+      summary: Delete a Todo By Id
+      description: Delete a Todo
+      operationId: deleteTodoById
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 1
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 2014098616
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultResponse'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DefaultResponse'
         '204':
           description: No Content
         '404':
@@ -448,20 +463,25 @@ components:
             - STUDY
             - FOOD
             - ENTERTAINMENT
+          default: STUDY
         title:
           type: string
         completed:
           type: boolean
+          default: false
         dueDate:
           type: string
           format: date
+          example: '2023-01-01'
         description:
           type: string
         createdDate:
           type: string
           format: date-time
+          example: '2023-01-01T17:32:28Z'
         deleted:
           type: boolean
+          default: false
     DefaultResponse:
       type: object
       properties:

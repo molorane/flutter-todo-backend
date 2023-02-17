@@ -160,7 +160,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/openapi/todo.yaml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/openapi/todo-spec.yaml</inputSpec>
 							<generatorName>spring</generatorName>
 							<generateApiTests>false</generateApiTests>
 							<generateModelTests>false</generateModelTests>

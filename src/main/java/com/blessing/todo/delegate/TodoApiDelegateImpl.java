@@ -82,7 +82,7 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
 
     @Override
     public ResponseEntity<Void> updateTodo(Long userId, TodoDTO todoDTO) {
-        final TodoDTO todo = TodoMapper.INSTANCE.internalToDTO(
+        TodoMapper.INSTANCE.internalToDTO(
                 todoService.update(
                         TodoMapper.INSTANCE.dtoToInternal(todoDTO, userId)
                 )
