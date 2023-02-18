@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface TodoRepository extends AbstractRepository<Todo> {
 
-    List<Todo> findTodoByTitleContainingIgnoreCase(String title);
+    List<Todo> findTodoByDescriptionContainingIgnoreCase(String title);
 
     List<Todo> findAllByCompleted(boolean completed);
 
-    List<Todo> findAllByAccountIdAndDeletedFalseOrderByIdDesc(Long userId);
+    List<Todo> findAllByAccountIdAndDeletedFalseOrderByDueDateDesc(Long userId);
 
     @Modifying
     @Query("UPDATE Todo a SET a.deleted = true WHERE a.id = :id")

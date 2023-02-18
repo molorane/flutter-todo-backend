@@ -20,7 +20,6 @@ public class Todo extends AbstractEntity {
     private Account account;
     @Enumerated(EnumType.STRING)
     private TodoType todoType = TodoType.STUDY;
-    private String title;
     private Boolean completed = false;
     private LocalDate dueDate;
     private String description;

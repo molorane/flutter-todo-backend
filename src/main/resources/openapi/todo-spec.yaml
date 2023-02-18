@@ -325,15 +325,15 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/{title}/title:
+  /v1/task/{description}/description:
     get:
       tags:
         - Todo
       summary: Get a Todo By title
       description: Get a Todo
-      operationId: findAllTodosByTitleContaining
+      operationId: findAllTodosByDescriptionContaining
       parameters:
-        - name: title
+        - name: description
           in: path
           required: true
           schema:
@@ -464,8 +464,6 @@ components:
             - FOOD
             - ENTERTAINMENT
           default: STUDY
-        title:
-          type: string
         completed:
           type: boolean
           default: false

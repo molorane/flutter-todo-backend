@@ -22,7 +22,7 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<Todo> findAllTodosByAccountId(Long userId) {
-        return todoRepository.findAllByAccountIdAndDeletedFalseOrderByIdDesc(userId);
+        return todoRepository.findAllByAccountIdAndDeletedFalseOrderByDueDateDesc(userId);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<Todo> findByTitleContaining(String title) {
-        return todoRepository.findTodoByTitleContainingIgnoreCase(title);
+    public List<Todo> findAllTodosByDescriptionContaining(String title) {
+        return todoRepository.findTodoByDescriptionContainingIgnoreCase(title);
     }
 
     @Override
@@ -49,7 +49,6 @@ public class TodoServiceImpl implements TodoService {
     public Todo update(Todo todo) {
         Todo update = findById(todo.getId()).orElseThrow(() -> new DataNotFoundException("An error occurred while updating entity"));
         update.setTodoType(todo.getTodoType());
-        update.setTitle(todo.getTitle());
         update.setDescription(todo.getDescription());
         update.setDueDate(todo.getDueDate());
         update.setCompleted(todo.getCompleted());

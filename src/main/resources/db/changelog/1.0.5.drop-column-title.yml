@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: dropColumn-title
+      author: Mothusi Molorane
+      changes:
+        - dropColumn:
+            columnName: title
+            tableName: todo

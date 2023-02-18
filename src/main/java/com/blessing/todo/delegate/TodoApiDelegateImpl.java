@@ -47,9 +47,9 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<TodoDTO>> findAllTodosByTitleContaining(String title) {
+    public ResponseEntity<List<TodoDTO>> findAllTodosByDescriptionContaining(String title) {
         final List<TodoDTO> todos = TodoMapper.INSTANCE.internalsToDTOs(
-                todoService.findByTitleContaining(title)
+                todoService.findAllTodosByDescriptionContaining(title)
         );
         return new ResponseEntity<>(todos, HttpStatus.OK);
     }

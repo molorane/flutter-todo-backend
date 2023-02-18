@@ -8,7 +8,7 @@ public interface TodoService extends AbstractService<Todo> {
 
     List<Todo> findAllTodosByAccountId(Long userId);
 
-    List<Todo> findByTitleContaining(String name);
+    List<Todo> findAllTodosByDescriptionContaining(String name);
 
     void deleteByIdAndAccountId(Long id, Long userId);
 
