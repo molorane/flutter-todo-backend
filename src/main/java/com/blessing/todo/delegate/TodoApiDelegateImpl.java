@@ -38,19 +38,19 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<TodoDTO>> findAllTodosByAccountId(Long userId) {
+    public ResponseEntity<List<TodoDTO>> findAllTodosByUserId(Long userId) {
         return ResponseEntity.ok(
                 TodoMapper.INSTANCE.internalsToDTOs(
-                        todoService.findAllTodosByAccountId(userId)
+                        todoService.findAllTodosByUserId(userId)
                 )
         );
     }
 
     @Override
-    public ResponseEntity<List<TodoDTO>> findAllTodaysTodosByAccountId(Long userId) {
+    public ResponseEntity<List<TodoDTO>> findAllTodosForTodayByUserId(Long userId) {
         return ResponseEntity.ok(
                 TodoMapper.INSTANCE.internalsToDTOs(
-                        todoService.findAllTodaysTodosByAccountId(userId)
+                        todoService.findAllTodosForTodayByUserId(userId)
                 )
         );
     }

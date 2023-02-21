@@ -13,7 +13,7 @@ public class DashboardApiDelegateImpl implements DashboardApiDelegate {
     private TodoService todoService;
 
     @Override
-    public ResponseEntity<Long> countDeletedTodosByAccountId(Long userId) {
+    public ResponseEntity<Long> countDeletedTodosByUserId(Long userId) {
         return ResponseEntity.ok(todoService.countDeletedTodosByAccountId(userId));
     }
 }

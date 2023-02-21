@@ -255,7 +255,7 @@ paths:
         - Todo
       summary: Find todos by userId
       description: Find todos by userId
-      operationId: findAllTodosByAccountId
+      operationId: findAllTodosByUserId
       parameters:
         - name: userId
           in: path
@@ -369,7 +369,7 @@ paths:
         - Dashboard
       summary: Count all deleted todos
       description: Count all deleted todos
-      operationId: countDeletedTodosByAccountId
+      operationId: countDeletedTodosByUserId
       parameters:
         - name: userId
           in: path
@@ -448,9 +448,9 @@ paths:
     get:
       tags:
         - Todo
-      summary: Find todays todos by userId
-      description: Find todays todos by userId
-      operationId: findAllTodaysTodosByAccountId
+      summary: Find all todos for today by userId
+      description: Find all todos for today by userId
+      operationId: findAllTodosForTodayByUserId
       parameters:
         - name: userId
           in: path

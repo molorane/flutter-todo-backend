@@ -22,12 +22,12 @@ public class TodoServiceImpl implements TodoService {
     private TodoRepository todoRepository;
 
     @Override
-    public List<Todo> findAllTodosByAccountId(Long userId) {
+    public List<Todo> findAllTodosByUserId(Long userId) {
         return todoRepository.findAllByAccountIdAndDeletedFalseOrderByDueDateDesc(userId);
     }
 
     @Override
-    public List<Todo> findAllTodaysTodosByAccountId(Long userId) {
+    public List<Todo> findAllTodosForTodayByUserId(Long userId) {
         return todoRepository.findAllTodosByAccountIdAndDueDate(userId, LocalDate.now());
     }
 
@@ -72,7 +72,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void deleteByAccountId(Long userId) {
+    public void deleteByUserId(Long userId) {
         todoRepository.deleteByAccountId(userId);
     }
 
