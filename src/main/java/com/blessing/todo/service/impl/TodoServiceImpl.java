@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,11 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public List<Todo> findAllTodosByAccountId(Long userId) {
         return todoRepository.findAllByAccountIdAndDeletedFalseOrderByDueDateDesc(userId);
+    }
+
+    @Override
+    public List<Todo> findAllTodaysTodosByAccountId(Long userId) {
+        return todoRepository.findAllTodosByAccountIdAndDueDate(userId, LocalDate.now());
     }
 
     @Override

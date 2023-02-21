@@ -444,6 +444,46 @@ paths:
             '*/*':
               schema:
                 type: string
+  /v1/task/{userId}/today:
+    get:
+      tags:
+        - Todo
+      summary: Find todays todos by userId
+      description: Find todays todos by userId
+      operationId: findAllTodaysTodosByAccountId
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 2014098616
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
 components:
   schemas:
     TodoDTO:

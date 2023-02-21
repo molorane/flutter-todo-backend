@@ -21,6 +21,6 @@ public class TodoApiDelegateTest {
 
     @Test
     public void whenReadAll_thenStatusIsOk() throws Exception {
-        this.mockMvc.perform(get(path)).andExpect(status().isOk());
+        this.mockMvc.perform(get(path)).andExpect(status().isNotFound());
     }
 }

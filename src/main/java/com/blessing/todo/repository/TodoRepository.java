@@ -4,6 +4,7 @@ import com.blessing.todo.entity.Todo;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface TodoRepository extends AbstractRepository<Todo> {
@@ -31,4 +32,6 @@ public interface TodoRepository extends AbstractRepository<Todo> {
     void deleteByAccountId(Long userId);
 
     Long countByAccountIdAndDeletedTrue(long accountId);
+
+    List<Todo> findAllTodosByAccountIdAndDueDate(Long userId, LocalDate dueDate);
 }
