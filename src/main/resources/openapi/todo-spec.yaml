@@ -503,7 +503,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TodoSearch'
+              $ref: '#/components/schemas/TodoSearchDTO'
         required: true
       responses:
         '200':
@@ -651,7 +651,7 @@ components:
           type: boolean
         sorted:
           type: boolean
-    TodoSearch:
+    TodoSearchDTO:
       type: object
       properties:
         todoType:
