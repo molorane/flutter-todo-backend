@@ -2,7 +2,9 @@ package com.blessing.todo.service.impl;
 
 import com.blessing.todo.entity.Todo;
 import com.blessing.todo.exception.DataNotFoundException;
+import com.blessing.todo.model.TodoSearchDTO;
 import com.blessing.todo.repository.TodoRepository;
+import com.blessing.todo.repository.specification.TodoSpecification;
 import com.blessing.todo.service.TodoService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -85,5 +87,10 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public Long countDeletedTodosByAccountId(long accountId) {
         return todoRepository.countByAccountIdAndIsDeletedTrue(accountId);
+    }
+
+    @Override
+    public List<Todo> searchTodos(Long userId, TodoSearchDTO todoSearch) {
+        return todoRepository.findAll(TodoSpecification.searchTodos(userId, todoSearch));
     }
 }

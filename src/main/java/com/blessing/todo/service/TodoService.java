@@ -1,6 +1,7 @@
 package com.blessing.todo.service;
 
 import com.blessing.todo.entity.Todo;
+import com.blessing.todo.model.TodoSearchDTO;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface TodoService extends AbstractService<Todo> {
     void restoreDeletedTodo(Long id, Long userId);
 
     Long countDeletedTodosByAccountId(long accountId);
+
+    List<Todo>  searchTodos(Long userId, TodoSearchDTO todoSearch);
 }

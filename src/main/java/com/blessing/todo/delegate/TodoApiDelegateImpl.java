@@ -5,6 +5,7 @@ import com.blessing.todo.exception.DataNotFoundException;
 import com.blessing.todo.mapper.TodoMapper;
 import com.blessing.todo.model.DefaultResponse;
 import com.blessing.todo.model.TodoDTO;
+import com.blessing.todo.model.TodoSearchDTO;
 import com.blessing.todo.service.TodoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -102,5 +103,14 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     @Override
     public ResponseEntity<DefaultResponse> uploadFile(Long userId, MultipartFile profileImage) {
         return TodoApiDelegate.super.uploadFile(userId, profileImage);
+    }
+
+    @Override
+    public ResponseEntity<List<TodoDTO>> searchTodos(Long userId, TodoSearchDTO todoSearch) {
+        return ResponseEntity.ok(
+                TodoMapper.INSTANCE.internalsToDTOs(
+                        todoService.searchTodos(userId, todoSearch)
+                )
+        );
     }
 }

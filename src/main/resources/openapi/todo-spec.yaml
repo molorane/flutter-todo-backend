@@ -511,10 +511,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TodoDTO'
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
             '*/*':
               schema:
-                $ref: '#/components/schemas/TodoDTO'
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
         '204':
           description: No Content
         '400':
@@ -659,7 +663,11 @@ components:
         isCompleted:
           type: boolean
           default: false
-        dueDate:
+        startDate:
+          type: string
+          format: date
+          example: '2023-01-01'
+        endDate:
           type: string
           format: date
           example: '2023-01-01'
