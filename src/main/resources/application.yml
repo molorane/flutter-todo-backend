@@ -1,7 +1,5 @@
 server:
   port: 2023
-  servlet:
-    context-path: /todo
 
 app:
   version: 0.0.1

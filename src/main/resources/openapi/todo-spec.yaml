@@ -11,7 +11,7 @@ info:
     url: http://springdoc.org
   version: 0.0.1
 servers:
-  - url: http://localhost:2023
+  - url: http://localhost:2023/todo
     description: Generated server url
 tags:
   - name: Dashboard
@@ -484,8 +484,80 @@ paths:
             '*/*':
               schema:
                 type: string
+  /v1/task/{userId}/search:
+    post:
+      tags:
+        - Todo
+      summary: Search todos
+      description: Search todos
+      operationId: searchTodos
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 2014098616
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoSearch'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+        '204':
+          description: No Content
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+        '404':
+          description: Todo not found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
 components:
   schemas:
+    TodoType:
+      type: string
+      enum:
+        - PRAYER
+        - GYM
+        - PREACH
+        - FLUTTER
+        - SPRING
+        - STUDY
+        - FOOD
+        - ENTERTAINMENT
+      default: STUDY
     TodoDTO:
       type: object
       properties:
@@ -493,17 +565,7 @@ components:
           type: integer
           format: int64
         todoType:
-          type: string
-          enum:
-            - PRAYER
-            - GYM
-            - PREACH
-            - FLUTTER
-            - SPRING
-            - STUDY
-            - FOOD
-            - ENTERTAINMENT
-          default: STUDY
+          $ref: '#/components/schemas/TodoType'
         isCompleted:
           type: boolean
           default: false
@@ -589,3 +651,20 @@ components:
           type: boolean
         sorted:
           type: boolean
+    TodoSearch:
+      type: object
+      properties:
+        todoType:
+          $ref: '#/components/schemas/TodoType'
+        isCompleted:
+          type: boolean
+          default: false
+        dueDate:
+          type: string
+          format: date
+          example: '2023-01-01'
+        description:
+          type: string
+        isDeleted:
+          type: boolean
+          default: false
