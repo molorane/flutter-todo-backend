@@ -24,5 +24,5 @@ public class AbstractEntity implements Serializable {
     @Column(name = "created_date", unique = true)
     private LocalDateTime createdDate = LocalDateTime.now();
 
-    private Boolean deleted = false;
+    private Boolean isDeleted = false;
 }

@@ -23,7 +23,7 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<Todo> findAllTodosByUserId(Long userId) {
-        return todoRepository.findAllByAccountIdAndDeletedFalseOrderByDueDateDesc(userId);
+        return todoRepository.findAllByAccountIdAndIsDeletedFalseOrderByDueDateDesc(userId);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class TodoServiceImpl implements TodoService {
         update.setTodoType(todo.getTodoType());
         update.setDescription(todo.getDescription());
         update.setDueDate(todo.getDueDate());
-        update.setCompleted(todo.getCompleted());
+        update.setIsCompleted(todo.getIsCompleted());
         return update;
     }
 
@@ -78,11 +78,12 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void restoreDeletedTodo(Long id, Long userId) {
-        todoRepository.restoreDeletedTodo(id, userId);
+        Todo todo = todoRepository.findByIdAndAccountId(id, userId).orElseThrow(() -> new DataNotFoundException("Entity not found."));
+        todo.setIsDeleted(true);
     }
 
     @Override
     public Long countDeletedTodosByAccountId(long accountId) {
-        return todoRepository.countByAccountIdAndDeletedTrue(accountId);
+        return todoRepository.countByAccountIdAndIsDeletedTrue(accountId);
     }
 }

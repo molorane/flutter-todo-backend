@@ -18,16 +18,20 @@ public class Todo extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Account account;
+
     @Enumerated(EnumType.STRING)
     private TodoType todoType = TodoType.STUDY;
-    private Boolean completed = false;
+
+    private Boolean isCompleted = false;
+
     private LocalDate dueDate;
+
     private String description;
 
     @PrePersist
     public void init() {
         this.setCreatedDate(LocalDateTime.now());
-        this.setDeleted(false);
-        this.completed = false;
+        this.setIsDeleted(false);
+        this.isCompleted = false;
     }
 }

@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: rename-column-completed-todo
+      author: Mothusi Molorane
+      changes:
+        - renameColumn:
+            columnDataType: int
+            newColumnName: is_completed
+            oldColumnName: completed
+            remarks: Rename column completed
+            tableName: todo
+  - changeSet:
+      id: rename-column-deleted-todo
+      author: Mothusi Molorane
+      changes:
+        - renameColumn:
+            columnDataType: int
+            newColumnName: is_deleted
+            oldColumnName: deleted
+            remarks: Rename column deleted
+            tableName: todo
+  - changeSet:
+      id: rename-column-deleted-account
+      author: Mothusi Molorane
+      changes:
+        - renameColumn:
+            columnDataType: int
+            newColumnName: is_deleted
+            oldColumnName: deleted
+            remarks: Rename column deleted
+            tableName: account
+  - changeSet:
+      id: rename-column-deleted-account-info
+      author: Mothusi Molorane
+      changes:
+        - renameColumn:
+            columnDataType: int
+            newColumnName: is_deleted
+            oldColumnName: deleted
+            remarks: Rename column deleted
+            tableName: account_info
+  - changeSet:
+      id: rename-column-deleted-app-role
+      author: Mothusi Molorane
+      changes:
+        - renameColumn:
+            columnDataType: int
+            newColumnName: is_deleted
+            oldColumnName: deleted
+            remarks: Rename column deleted
+            tableName: app_role

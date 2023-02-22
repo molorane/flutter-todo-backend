@@ -504,7 +504,7 @@ components:
             - FOOD
             - ENTERTAINMENT
           default: STUDY
-        completed:
+        isCompleted:
           type: boolean
           default: false
         dueDate:
@@ -517,7 +517,7 @@ components:
           type: string
           format: date-time
           example: '2023-01-01T17:32:28Z'
-        deleted:
+        isDeleted:
           type: boolean
           default: false
     DefaultResponse:

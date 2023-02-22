@@ -1,7 +1,7 @@
 user_id,todo_type,title,completed,due_date,description
 2014098616, FOOD, Have break fast, true, '2022-10-10', Eat healthy meal
 2014098616, GYM, Do workout, true, '2023-01-23', Run 10km
-2014098616, EVANGELISM, Evangelise my world, false, '2023-01-10', Distribute tracts at the gym
+2014098616, PREACH, Evangelise my world, false, '2023-01-10', Distribute tracts at the gym
 2014098616, FLUTTER, Learn Flutter, true, '2023-02-01', Code flutter app for one hour
 2014098616, GYM, Do workout, true, '2023-01-23', Run 10km
 2014098616, FOOD, Have lunch, true, '2022-10-10', Eat healthy lunch
