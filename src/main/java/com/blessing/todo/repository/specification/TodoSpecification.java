@@ -44,40 +44,45 @@ public class TodoSpecification {
 
     public static Specification<Todo> searchTodos(Long userId, TodoSearchDTO todoSearch) {
         final List<Predicate> predicates = new ArrayList<>();
-
+        final Account account = new Account();
+        account.setId(userId);
         return (@NonNull Root<Todo> root, @NonNull CriteriaQuery<?> query, @NonNull CriteriaBuilder cb) -> {
-            Account account = new Account();
-            account.setId(userId);
-
             predicates.add(cb.and(cb.equal(root.get("account"), account)));
-
-            if (Objects.nonNull(todoSearch.getTodoType())) {
-                predicates.add(todoTypeEqual(root, cb,
-                        TodoType.valueOf(todoSearch.getTodoType().toString())
-                ));
-            }
-
-            if (Objects.nonNull(todoSearch.getStartDate())) {
-                predicates.add(dueDateGreaterThanOrEqualTo(root, cb, todoSearch.getStartDate()));
-            }
-
-            if (Objects.nonNull(todoSearch.getEndDate())) {
-                predicates.add(dueDateLessThanOrEqualTo(root, cb, todoSearch.getEndDate()));
-            }
-
-            if (Objects.nonNull(todoSearch.getDescription())) {
-                predicates.add(descriptionLike(root, cb, todoSearch.getDescription()));
-            }
-
-            if (todoSearch.getIsCompleted()) {
-                predicates.add(isCompleted(root, cb));
-            }
-
-            if (todoSearch.getIsDeleted()) {
-                predicates.add(isDeleted(root, cb));
-            }
-
-            return cb.and(predicates.toArray(new Predicate[0]));
+            return applyFilters(predicates, todoSearch, root, cb);
         };
+    }
+
+    private static Predicate applyFilters(final List<Predicate> predicates,
+                                          TodoSearchDTO todoSearch,
+                                          @NonNull Root<Todo> root,
+                                          @NonNull CriteriaBuilder cb) {
+
+        if (Objects.nonNull(todoSearch.getTodoType())) {
+            predicates.add(todoTypeEqual(root, cb,
+                    TodoType.valueOf(todoSearch.getTodoType().toString())
+            ));
+        }
+
+        if (Objects.nonNull(todoSearch.getStartDate())) {
+            predicates.add(dueDateGreaterThanOrEqualTo(root, cb, todoSearch.getStartDate()));
+        }
+
+        if (Objects.nonNull(todoSearch.getEndDate())) {
+            predicates.add(dueDateLessThanOrEqualTo(root, cb, todoSearch.getEndDate()));
+        }
+
+        if (Objects.nonNull(todoSearch.getDescription())) {
+            predicates.add(descriptionLike(root, cb, todoSearch.getDescription()));
+        }
+
+        if (todoSearch.getIsCompleted()) {
+            predicates.add(isCompleted(root, cb));
+        }
+
+        if (todoSearch.getIsDeleted()) {
+            predicates.add(isDeleted(root, cb));
+        }
+
+        return cb.and(predicates.toArray(new Predicate[0]));
     }
 }
