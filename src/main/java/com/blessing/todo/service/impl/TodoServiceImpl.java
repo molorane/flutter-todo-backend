@@ -25,12 +25,19 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<Todo> findAllTodosByUserId(Long userId) {
-        return todoRepository.findAllByAccountIdAndIsDeletedFalseOrderByDueDateDesc(userId);
+        return todoRepository.findTop40ByAccountIdAndIsDeletedFalseOrderByDueDateDesc(userId);
     }
 
     @Override
     public List<Todo> findAllTodosForTodayByUserId(Long userId) {
         return todoRepository.findAllTodosByAccountIdAndDueDate(userId, LocalDate.now());
+    }
+
+    @Override
+    public Todo findTodoByIdAndUserId(Long todoId, Long userId) {
+        return todoRepository.findByIdAndAccountId(todoId, userId).orElseThrow(
+                () -> new DataNotFoundException("Could not find todo")
+        );
     }
 
     @Override

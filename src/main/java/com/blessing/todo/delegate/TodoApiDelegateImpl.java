@@ -30,7 +30,7 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<DefaultResponse> deleteTodoById(Long id, Long userId) {
+    public ResponseEntity<DefaultResponse> deleteTodoByIdAndUserId(Long id, Long userId) {
         todoService.deleteByIdAndAccountId(id, userId);
         return new ResponseEntity<>(
                 new DefaultResponse().message("Todo Deleted").date(LocalDateTime.now()),
@@ -43,6 +43,15 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
         return ResponseEntity.ok(
                 TodoMapper.INSTANCE.internalsToDTOs(
                         todoService.findAllTodosByUserId(userId)
+                )
+        );
+    }
+
+    @Override
+    public ResponseEntity<TodoDTO> findTodoByIdAndUserId(Long todoId, Long userId) {
+        return ResponseEntity.ok(
+                TodoMapper.INSTANCE.internalToDTO(
+                        todoService.findTodoByIdAndUserId(todoId, userId)
                 )
         );
     }
@@ -82,7 +91,7 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
 //    }
 
     @Override
-    public ResponseEntity<DefaultResponse> restoreDeletedTodo(Long id, Long userId) {
+    public ResponseEntity<DefaultResponse> restoreSoftDeletedTodo(Long id, Long userId) {
         todoService.restoreDeletedTodo(id, userId);
         return new ResponseEntity<>(
                 new DefaultResponse().message("Todo restored").date(LocalDateTime.now()),

@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class TodoApiDelegateTest {
 
-    private static final String path = "http://localhost:2023/todo/v1/task/2014098616/user";
+    private static final String path = "http://localhost:2023/todo/v1/tasks/2014098616/user";
 
     @Autowired
     private MockMvc mockMvc;

@@ -19,7 +19,7 @@ tags:
   - name: Todo
     description: Api operations for the todo
 paths:
-  /v1/task/{userId}:
+  /v1/tasks/{userId}:
     put:
       tags:
         - Todo
@@ -112,13 +112,13 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TodoDTO'
-  /v1/task/restore-deleted-todo/:
+  /v1/tasks/restore-deleted-todo/:
     put:
       tags:
         - Todo
       summary: Restore a deleted Todo
       description: Restore a deleted Todo
-      operationId: restoreDeletedTodo
+      operationId: restoreSoftDeletedTodo
       parameters:
         - name: id
           in: query
@@ -155,7 +155,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/{userId}/uploadProfile:
+  /v1/tasks/{userId}/uploadProfile:
     post:
       tags:
         - Todo
@@ -194,7 +194,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task:
+  /v1/tasks:
     get:
       tags:
         - Todo
@@ -249,7 +249,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/{userId}/user:
+  /v1/tasks/{userId}/user:
     get:
       tags:
         - Todo
@@ -289,7 +289,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/{todoId}:
+  /v1/tasks/{todoId}:
     get:
       tags:
         - Todo
@@ -325,7 +325,50 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/{description}/description:
+  /v1/tasks/{todoId}/user/{userId}:
+    get:
+      tags:
+        - Todo
+      summary: Get Todo By Id and UserId
+      description: Get Todo
+      operationId: findTodoByIdAndUserId
+      parameters:
+        - name: todoId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 1
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 1
+      responses:
+        '200':
+          description: Get Todo By Id and UserId
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TodoDTO'
+        '204':
+          description: No Content
+        '404':
+          description: Todo not found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+  /v1/tasks/{description}/description:
     get:
       tags:
         - Todo
@@ -363,7 +406,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/dashboard/deleted-todo/{userId}:
+  /v1/tasks/dashboard/deleted-todo/{userId}:
     get:
       tags:
         - Dashboard
@@ -401,13 +444,13 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/:
+  /v1/tasks/:
     delete:
       tags:
         - Todo
       summary: Delete a Todo By Id
       description: Delete a Todo
-      operationId: deleteTodoById
+      operationId: deleteTodoByIdAndUserId
       parameters:
         - name: id
           in: query
@@ -444,7 +487,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/{userId}/today:
+  /v1/tasks/{userId}/today:
     get:
       tags:
         - Todo
@@ -484,7 +527,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/task/{userId}/search:
+  /v1/tasks/{userId}/search:
     post:
       tags:
         - Todo

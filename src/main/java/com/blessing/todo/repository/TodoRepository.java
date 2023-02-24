@@ -11,13 +11,13 @@ import java.util.Optional;
 
 public interface TodoRepository extends AbstractRepository<Todo>, JpaSpecificationExecutor<Todo> {
 
-    Optional<Todo> findByIdAndAccountId(Long id, Long userId);
+    Optional<Todo> findByIdAndAccountId(Long todoId, Long userId);
 
     List<Todo> findTodoByDescriptionContainingIgnoreCase(String title);
 
     List<Todo> findAllByAccountIdAndIsCompleted(long accountId, boolean isCompleted);
 
-    List<Todo> findAllByAccountIdAndIsDeletedFalseOrderByDueDateDesc(Long userId);
+    List<Todo> findTop40ByAccountIdAndIsDeletedFalseOrderByDueDateDesc(Long userId);
 
     @Modifying
     @Query("UPDATE Todo a SET a.isDeleted = true WHERE a.id = :id")

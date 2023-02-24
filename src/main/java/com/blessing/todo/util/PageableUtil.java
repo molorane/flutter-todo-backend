@@ -9,8 +9,6 @@ import java.util.Objects;
 
 public class PageableUtil {
 
-    private static Pageable pageable;
-
     public static Pageable pageable(final Integer pageNo,
                                     final Integer pageSize,
                                     final String sortBy,
