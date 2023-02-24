@@ -21,7 +21,5 @@ public interface TodoService extends AbstractService<Todo> {
 
     void restoreDeletedTodo(Long id, Long userId);
 
-    Long countDeletedTodosByAccountId(long accountId);
-
     List<Todo>  searchTodos(Long userId, TodoSearchDTO todoSearch);
 }

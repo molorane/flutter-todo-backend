@@ -92,11 +92,6 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Long countDeletedTodosByAccountId(long accountId) {
-        return todoRepository.countByAccountIdAndIsDeletedTrue(accountId);
-    }
-
-    @Override
     public List<Todo> searchTodos(Long userId, TodoSearchDTO todoSearch) {
         return todoRepository.findAll(TodoSpecification.searchTodos(userId, todoSearch));
     }

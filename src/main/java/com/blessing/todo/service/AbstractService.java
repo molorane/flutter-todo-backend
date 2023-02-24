@@ -8,7 +8,9 @@ import java.util.Optional;
 public interface AbstractService<T> {
 
 
-    Optional<T> findById(Long id);
+    default Optional<T> findById(Long id) {
+        throw new RuntimeException("You need to implement this method to save an entity.");
+    }
 
     default T save(final T entity) {
         throw new RuntimeException("You need to implement this method to save an entity.");
@@ -18,7 +20,9 @@ public interface AbstractService<T> {
         throw new RuntimeException("You need to implement this method to update an entity.");
     }
 
-    Page<T> findAll(Pageable pageable);
+    default Page<T> findAll(Pageable pageable) {
+        throw new RuntimeException("You need to implement this method to save an entity.");
+    }
 
     default void deleteById(final Long id) {
         throw new RuntimeException("You need to implement this method to delete an entity.");

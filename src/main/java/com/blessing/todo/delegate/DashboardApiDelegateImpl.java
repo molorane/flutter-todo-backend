@@ -1,19 +1,29 @@
 package com.blessing.todo.delegate;
 
 import com.blessing.todo.api.DashboardApiDelegate;
-import com.blessing.todo.service.TodoService;
+import com.blessing.todo.mapper.TodoDashboardMapper;
+import com.blessing.todo.model.TodoGroupCount;
+import com.blessing.todo.service.TodoDashboardService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class DashboardApiDelegateImpl implements DashboardApiDelegate {
 
-    private TodoService todoService;
+    private TodoDashboardService todoDashboardService;
 
     @Override
     public ResponseEntity<Long> countDeletedTodosByUserId(Long userId) {
-        return ResponseEntity.ok(todoService.countDeletedTodosByAccountId(userId));
+        return ResponseEntity.ok(todoDashboardService.countDeletedTodosByAccountId(userId));
+    }
+
+    @Override
+    public ResponseEntity<List<TodoGroupCount>> todoGroupCountByUserId(Long userId) {
+        return ResponseEntity.ok(
+                TodoDashboardMapper.INSTANCE.internalsToDTOs(todoDashboardService.todoGroupCountByUserId(userId)));
     }
 }

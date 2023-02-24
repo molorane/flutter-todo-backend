@@ -31,7 +31,5 @@ public interface TodoRepository extends AbstractRepository<Todo>, JpaSpecificati
     @Query("UPDATE Todo a SET a.isDeleted = true WHERE a.account.id = :userId")
     void deleteByAccountId(Long userId);
 
-    Long countByAccountIdAndIsDeletedTrue(long accountId);
-
     List<Todo> findAllTodosByAccountIdAndDueDate(Long userId, LocalDate dueDate);
 }
