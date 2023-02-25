@@ -39,7 +39,8 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<TodoDTO>> findAllTodosByUserId(Long userId) {
+    public ResponseEntity<List<TodoDTO>> loadTopEntitiesByUserId(Long userId) {
+        //throw new RuntimeException("Apt");
         return ResponseEntity.ok(
                 TodoMapper.INSTANCE.internalsToDTOs(
                         todoService.findAllTodosByUserId(userId)

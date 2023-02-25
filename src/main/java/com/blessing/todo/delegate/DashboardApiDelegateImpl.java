@@ -2,6 +2,7 @@ package com.blessing.todo.delegate;
 
 import com.blessing.todo.api.DashboardApiDelegate;
 import com.blessing.todo.mapper.TodoDashboardMapper;
+import com.blessing.todo.model.TodoCountToday;
 import com.blessing.todo.model.TodoGroupCount;
 import com.blessing.todo.service.TodoDashboardService;
 import lombok.AllArgsConstructor;
@@ -25,5 +26,11 @@ public class DashboardApiDelegateImpl implements DashboardApiDelegate {
     public ResponseEntity<List<TodoGroupCount>> todoGroupCountByUserId(Long userId) {
         return ResponseEntity.ok(
                 TodoDashboardMapper.INSTANCE.internalsToDTOs(todoDashboardService.todoGroupCountByUserId(userId)));
+    }
+
+    @Override
+    public ResponseEntity<List<TodoCountToday>> todoCountTodayByUserId(Long userId) {
+        return ResponseEntity.ok(
+                TodoDashboardMapper.INSTANCE.internalsToTodoCountToday(todoDashboardService.todoCountTodayByUserId(userId)));
     }
 }

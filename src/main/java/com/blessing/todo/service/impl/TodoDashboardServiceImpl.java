@@ -1,5 +1,6 @@
 package com.blessing.todo.service.impl;
 
+import com.blessing.todo.dashboard.ITodoCountToday;
 import com.blessing.todo.dashboard.ITodoGroupCount;
 import com.blessing.todo.repository.TodoDashboardRepository;
 import com.blessing.todo.service.TodoDashboardService;
@@ -24,5 +25,10 @@ public class TodoDashboardServiceImpl implements TodoDashboardService {
     @Override
     public List<ITodoGroupCount> todoGroupCountByUserId(Long userId) {
         return todoDashboardRepository.todoGroupCountByUserId(userId);
+    }
+
+    @Override
+    public List<ITodoCountToday> todoCountTodayByUserId(Long userId) {
+        return todoDashboardRepository.todoCountTodayByUserId(userId);
     }
 }
