@@ -293,8 +293,8 @@ paths:
     get:
       tags:
         - Todo
-      summary: Find todos by user id and todo-type
-      description: Find todos by user id and todo-type
+      summary: Find todos by userId and todo-type
+      description: Find todos by userId
       operationId: find-todos-by-user-id-and-todo-type
       parameters:
         - name: userId
@@ -504,6 +504,11 @@ paths:
             type: integer
             format: int64
             default: 2014098616
+        - name: todoType
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/TodoType'
       responses:
         '200':
           description: OK
@@ -544,6 +549,11 @@ paths:
             type: integer
             format: int64
             default: 2014098616
+        - name: todoType
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/TodoType'
       responses:
         '200':
           description: OK
@@ -729,7 +739,8 @@ components:
         - STUDY
         - FOOD
         - ENTERTAINMENT
-      default: STUDY
+        - UNKNOWN
+      default: UNKNOWN
     TodoDTO:
       type: object
       properties:

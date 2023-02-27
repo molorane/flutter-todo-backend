@@ -16,7 +16,9 @@ public enum TodoType {
 
     FOOD("FOOD"),
 
-    ENTERTAINMENT("ENTERTAINMENT");
+    ENTERTAINMENT("ENTERTAINMENT"),
+
+    UNKNOWN("UNKNOWN");
 
     private final String value;
 

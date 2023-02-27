@@ -4,6 +4,7 @@ import com.blessing.todo.api.DashboardApiDelegate;
 import com.blessing.todo.mapper.TodoDashboardMapper;
 import com.blessing.todo.model.TodoCountToday;
 import com.blessing.todo.model.TodoGroupCount;
+import com.blessing.todo.model.TodoType;
 import com.blessing.todo.service.TodoDashboardService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +24,14 @@ public class DashboardApiDelegateImpl implements DashboardApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<TodoGroupCount>> todoGroupCountByUserId(Long userId) {
+    public ResponseEntity<List<TodoGroupCount>> todoGroupCountByUserId(Long userId, TodoType todoType) {
         return ResponseEntity.ok(
-                TodoDashboardMapper.INSTANCE.internalsToDTOs(todoDashboardService.todoGroupCountByUserId(userId)));
+                TodoDashboardMapper.INSTANCE.internalsToDTOs(todoDashboardService.todoGroupCountByUserId(userId, todoType)));
     }
 
     @Override
-    public ResponseEntity<List<TodoCountToday>> todoCountTodayByUserId(Long userId) {
+    public ResponseEntity<List<TodoCountToday>> todoCountTodayByUserId(Long userId, TodoType todoType) {
         return ResponseEntity.ok(
-                TodoDashboardMapper.INSTANCE.internalsToTodoCountToday(todoDashboardService.todoCountTodayByUserId(userId)));
+                TodoDashboardMapper.INSTANCE.internalsToTodoCountToday(todoDashboardService.todoCountTodayByUserId(userId, todoType)));
     }
 }

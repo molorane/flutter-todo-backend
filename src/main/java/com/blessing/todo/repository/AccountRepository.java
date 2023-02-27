@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface AccountRepository extends AbstractRepository<Account> {
@@ -15,5 +16,5 @@ public interface AccountRepository extends AbstractRepository<Account> {
     Optional<Account> findByUsername(String username);
 
 
-    List<Account> findByRolesIn(List<AppRole> roles);
+    List<Account> findByRolesIn(Set<AppRole> roles);
 }
