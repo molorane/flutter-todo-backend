@@ -3,9 +3,11 @@ package com.blessing.todo.delegate;
 import com.blessing.todo.api.TodoApiDelegate;
 import com.blessing.todo.exception.DataNotFoundException;
 import com.blessing.todo.mapper.TodoMapper;
+import com.blessing.todo.mapper.TodoTypeMapper;
 import com.blessing.todo.model.DefaultResponse;
 import com.blessing.todo.model.TodoDTO;
 import com.blessing.todo.model.TodoSearchDTO;
+import com.blessing.todo.model.TodoType;
 import com.blessing.todo.service.TodoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -53,6 +55,17 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
         return ResponseEntity.ok(
                 TodoMapper.INSTANCE.internalToDTO(
                         todoService.findTodoByIdAndUserId(todoId, userId)
+                )
+        );
+    }
+
+    @Override
+    public ResponseEntity<List<TodoDTO>> findTodosByUserIdAndTodoType(Long userId, TodoType todoType) {
+        return ResponseEntity.ok(
+                TodoMapper.INSTANCE.internalsToDTOs(
+                        todoService.findTodosByUserIdAndTodoType(userId,
+                                TodoTypeMapper.INSTANCE.dtoToInternal(todoType)
+                                )
                 )
         );
     }

@@ -1,6 +1,7 @@
 package com.blessing.todo.service;
 
 import com.blessing.todo.entity.Todo;
+import com.blessing.todo.entity.enums.TodoType;
 import com.blessing.todo.model.TodoSearchDTO;
 
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.List;
 public interface TodoService extends AbstractService<Todo> {
 
     List<Todo> findAllTodosByUserId(Long userId);
+
+    List<Todo> findTodosByUserIdAndTodoType(Long userId, TodoType todoType);
 
     List<Todo> findAllTodosForTodayByUserId(Long userId);
 

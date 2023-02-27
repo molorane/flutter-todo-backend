@@ -289,6 +289,51 @@ paths:
             '*/*':
               schema:
                 type: string
+  /v1/tasks/{userId}/todo-type:
+    get:
+      tags:
+        - Todo
+      summary: Find todos by user id and todo-type
+      description: Find todos by user id and todo-type
+      operationId: find-todos-by-user-id-and-todo-type
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 2014098616
+        - name: todoType
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/TodoType'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoDTO'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
   /v1/tasks/{todoId}:
     get:
       tags:

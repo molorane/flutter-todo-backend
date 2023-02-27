@@ -1,6 +1,7 @@
 package com.blessing.todo.repository;
 
 import com.blessing.todo.entity.Todo;
+import com.blessing.todo.entity.enums.TodoType;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -32,4 +33,6 @@ public interface TodoRepository extends AbstractRepository<Todo>, JpaSpecificati
     void deleteByAccountId(Long userId);
 
     List<Todo> findAllTodosByAccountIdAndDueDate(Long userId, LocalDate dueDate);
+
+    List<Todo> findTodosByAccountIdAndTodoType(Long userId, TodoType todoType);
 }

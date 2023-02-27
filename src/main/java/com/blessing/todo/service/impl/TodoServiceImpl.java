@@ -3,6 +3,7 @@ package com.blessing.todo.service.impl;
 import com.blessing.todo.entity.Todo;
 import com.blessing.todo.exception.DataNotFoundException;
 import com.blessing.todo.model.TodoSearchDTO;
+import com.blessing.todo.entity.enums.TodoType;
 import com.blessing.todo.repository.TodoRepository;
 import com.blessing.todo.repository.specification.TodoSpecification;
 import com.blessing.todo.service.TodoService;
@@ -26,6 +27,11 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public List<Todo> findAllTodosByUserId(Long userId) {
         return todoRepository.findTop40ByAccountIdAndIsDeletedFalseOrderByDueDateDesc(userId);
+    }
+
+    @Override
+    public List<Todo> findTodosByUserIdAndTodoType(Long userId, TodoType todoType) {
+        return todoRepository.findTodosByAccountIdAndTodoType(userId, todoType);
     }
 
     @Override
