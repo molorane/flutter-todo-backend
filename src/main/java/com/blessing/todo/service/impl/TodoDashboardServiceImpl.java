@@ -33,7 +33,6 @@ public class TodoDashboardServiceImpl implements TodoDashboardService {
         return todoDashboardRepository.todoGroupCountByUserId(userId,
                 TodoTypeMapper.INSTANCE.dtoToInternal(todoType)
         );
-
     }
 
     @Override
@@ -44,6 +43,5 @@ public class TodoDashboardServiceImpl implements TodoDashboardService {
         return todoDashboardRepository.todoCountTodayByUserId(userId,
                 TodoTypeMapper.INSTANCE.dtoToInternal(todoType)
         );
-
     }
 }
