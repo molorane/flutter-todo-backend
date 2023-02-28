@@ -71,7 +71,7 @@ public class TodoSpecification {
             predicates.add(dueDateLessThanOrEqualTo(root, cb, todoSearch.getEndDate()));
         }
 
-        if (Objects.nonNull(todoSearch.getDescription())) {
+        if (Objects.nonNull(todoSearch.getDescription()) && !todoSearch.getDescription().isBlank()) {
             predicates.add(descriptionLike(root, cb, todoSearch.getDescription()));
         }
 

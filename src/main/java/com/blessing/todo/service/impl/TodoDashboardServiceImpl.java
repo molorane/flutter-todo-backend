@@ -27,7 +27,7 @@ public class TodoDashboardServiceImpl implements TodoDashboardService {
 
     @Override
     public List<ITodoGroupCount> todoGroupCountByUserId(Long userId, TodoType todoType) {
-        if (Objects.isNull(todoType) || Objects.equals(todoType, TodoType.UNKNOWN))
+        if (Objects.isNull(todoType))
             return todoDashboardRepository.todoGroupCountByUserId(userId);
 
         return todoDashboardRepository.todoGroupCountByUserId(userId,
@@ -37,7 +37,7 @@ public class TodoDashboardServiceImpl implements TodoDashboardService {
 
     @Override
     public List<ITodoCountToday> todoCountTodayByUserId(Long userId, TodoType todoType) {
-        if (Objects.isNull(todoType) || Objects.equals(todoType, TodoType.UNKNOWN))
+        if (Objects.isNull(todoType))
             return todoDashboardRepository.todoCountTodayByUserId(userId);
 
         return todoDashboardRepository.todoCountTodayByUserId(userId,

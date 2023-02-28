@@ -739,8 +739,6 @@ components:
         - STUDY
         - FOOD
         - ENTERTAINMENT
-        - UNKNOWN
-      default: UNKNOWN
     TodoDTO:
       type: object
       properties:
