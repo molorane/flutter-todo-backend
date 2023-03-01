@@ -1,15 +1,16 @@
 package com.blessing.todo.delegate;
 
 import com.blessing.todo.api.TodoApiDelegate;
+import com.blessing.todo.entity.Todo;
 import com.blessing.todo.exception.DataNotFoundException;
 import com.blessing.todo.mapper.TodoMapper;
 import com.blessing.todo.mapper.TodoTypeMapper;
-import com.blessing.todo.model.DefaultResponse;
-import com.blessing.todo.model.TodoDTO;
-import com.blessing.todo.model.TodoSearchDTO;
-import com.blessing.todo.model.TodoType;
+import com.blessing.todo.model.*;
 import com.blessing.todo.service.TodoService;
+import com.blessing.todo.util.PageableUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,7 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
                 TodoMapper.INSTANCE.internalsToDTOs(
                         todoService.findTodosByUserIdAndTodoType(userId,
                                 TodoTypeMapper.INSTANCE.dtoToInternal(todoType)
-                                )
+                        )
                 )
         );
     }
@@ -94,15 +95,24 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
         return new ResponseEntity<>(todoDTO, HttpStatus.OK);
     }
 
-//    @Override
-//    public ResponseEntity<PageTodoDTO> findTodos(Integer pageNo, Integer pageSize, String sortBy, String dir) {
-//        final Pageable pageable = PageableUtil.pageable(pageNo, pageSize, sortBy, dir);
-//        final Page<Todo> pages = todoRepository.findAll(pageable);
-//        final List<TodoDTO> list = TodoMapper.INSTANCE.todosToTodoDTOs(pages.getContent());
-//        if (list.isEmpty())
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        return new ResponseEntity<>(new PageImpl<>(list), HttpStatus.OK);
-//    }
+    @Override
+    public ResponseEntity<PageTodoDTO> findTodos(Integer pageNo, Integer pageSize, String sortBy, String dir) {
+        final Pageable pageable = PageableUtil.pageable(pageNo, pageSize, sortBy, dir);
+        final Page<Todo> pages = todoService.findAll(pageable);
+        final List<TodoDTO> list = TodoMapper.INSTANCE.internalsToDTOs(pages.getContent());
+        if (list.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        final PageTodoDTO pageTodoDTO = new PageTodoDTO();
+        pageTodoDTO.content(list);
+        pageTodoDTO.totalPages(pages.getTotalPages());
+        pageTodoDTO.totalElements(pages.getTotalElements());
+        pageTodoDTO.first(pages.isFirst());
+        pageTodoDTO.last(pages.isLast());
+        pageTodoDTO.size(pages.getSize());
+
+        return new ResponseEntity<>(pageTodoDTO, HttpStatus.OK);
+    }
 
     @Override
     public ResponseEntity<DefaultResponse> restoreSoftDeletedTodo(Long id, Long userId) {
