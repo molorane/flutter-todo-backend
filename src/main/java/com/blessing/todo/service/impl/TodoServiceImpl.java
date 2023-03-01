@@ -94,7 +94,7 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public void restoreDeletedTodo(Long id, Long userId) {
         Todo todo = todoRepository.findByIdAndAccountId(id, userId).orElseThrow(() -> new DataNotFoundException("Entity not found."));
-        todo.setIsDeleted(true);
+        todo.setIsDeleted(false);
     }
 
     @Override
