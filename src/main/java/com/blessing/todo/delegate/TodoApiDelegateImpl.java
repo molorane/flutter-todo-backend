@@ -3,6 +3,7 @@ package com.blessing.todo.delegate;
 import com.blessing.todo.api.TodoApiDelegate;
 import com.blessing.todo.entity.Todo;
 import com.blessing.todo.exception.DataNotFoundException;
+import com.blessing.todo.mapper.PaginationMapper;
 import com.blessing.todo.mapper.TodoMapper;
 import com.blessing.todo.mapper.TodoTypeMapper;
 import com.blessing.todo.model.*;
@@ -103,13 +104,7 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
         if (list.isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        final PageTodoDTO pageTodoDTO = new PageTodoDTO();
-        pageTodoDTO.content(list);
-        pageTodoDTO.totalPages(pages.getTotalPages());
-        pageTodoDTO.totalElements(pages.getTotalElements());
-        pageTodoDTO.first(pages.isFirst());
-        pageTodoDTO.last(pages.isLast());
-        pageTodoDTO.size(pages.getSize());
+        PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
 
         return new ResponseEntity<>(pageTodoDTO, HttpStatus.OK);
     }
