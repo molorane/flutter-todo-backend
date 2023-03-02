@@ -2,23 +2,24 @@ package com.blessing.todo.repository;
 
 import com.blessing.todo.entity.Todo;
 import com.blessing.todo.entity.enums.TodoType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 public interface TodoRepository extends AbstractRepository<Todo>, JpaSpecificationExecutor<Todo> {
 
     Optional<Todo> findByIdAndAccountId(Long todoId, Long userId);
 
-    List<Todo> findTodoByDescriptionContainingIgnoreCase(String title);
+    Page<Todo> findTodoByDescriptionContainingIgnoreCase(String title, Pageable pageable);
 
-    List<Todo> findAllByAccountIdAndIsCompleted(long accountId, boolean isCompleted);
+    Page<Todo> findAllByAccountIdAndIsCompleted(long accountId, boolean isCompleted, Pageable pageable);
 
-    List<Todo> findTop40ByAccountIdAndIsDeletedFalseOrderByDueDateDesc(Long userId);
+    Page<Todo> findAllTodosByAccountIdAndIsDeletedFalse(Long userId, Pageable pageable);
 
     @Modifying
     @Query("UPDATE Todo a SET a.isDeleted = true WHERE a.id = :id")
@@ -32,7 +33,9 @@ public interface TodoRepository extends AbstractRepository<Todo>, JpaSpecificati
     @Query("UPDATE Todo a SET a.isDeleted = true WHERE a.account.id = :userId")
     void deleteByAccountId(Long userId);
 
-    List<Todo> findAllTodosByAccountIdAndDueDate(Long userId, LocalDate dueDate);
+    Page<Todo> findAllTodosByAccountIdAndDueDate(Long userId, LocalDate dueDate, Pageable pageable);
 
-    List<Todo> findTodosByAccountIdAndTodoType(Long userId, TodoType todoType);
+    Page<Todo> findTodosByAccountIdAndTodoType(Long userId, TodoType todoType, Pageable pageable);
+
+    Page<Todo> findAllByAccountId(Long userId, Pageable pageable);
 }

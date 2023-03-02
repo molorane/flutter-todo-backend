@@ -13,29 +13,33 @@ public class PageableUtil {
                                     final Integer pageSize,
                                     final String sortBy,
                                     final String direction) {
-        Sort sort = Sort.by(Strings.split(sortBy, ','));
-        sort(direction, sort);
 
-        return PageRequest.of(pageNo, pageSize, sort);
+        if (Objects.isNull(pageNo) || Objects.isNull(pageSize)) {
+            return defaultPageable();
+        } else if (Objects.isNull(sortBy) || sortBy.isBlank() || Objects.isNull(direction) || direction.isBlank()) {
+            return defaultPageable();
+        }
+        return PageRequest.of(pageNo, pageSize,
+                sort(direction, Sort.by(Strings.split(sortBy, ',')))
+        );
     }
 
     /**
      * Get {@link Pageable} with default properties values
      *
-     * @param pageable {@link Pageable} object providing default settings
      * @return pageable for searched object
      */
-    public static Pageable defaultPageable(final Pageable pageable) {
-        final Sort sort = Sort.by("name");
-        return PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+    public static Pageable defaultPageable() {
+        final Sort sort = Sort.by("id");
+        return PageRequest.of(0, 20, sort.descending());
     }
 
-    private static void sort(final String direction,
+    private static Sort sort(final String direction,
                              final Sort sort) {
         if (Objects.isNull(direction) || direction.equalsIgnoreCase("asc")) {
-            sort.ascending();
+            return sort.ascending();
         } else {
-            sort.descending();
+            return sort.descending();
         }
     }
 }

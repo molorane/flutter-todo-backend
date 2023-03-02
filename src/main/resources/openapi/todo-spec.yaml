@@ -194,7 +194,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/tasks:
+  /v1/tasks/{userId}/pages:
     get:
       tags:
         - Todo
@@ -202,32 +202,18 @@ paths:
       description: Get Todos
       operationId: find-todos
       parameters:
-        - name: pageNo
-          in: query
-          required: false
+        - name: userId
+          in: path
+          required: true
           schema:
             type: integer
-            format: int32
-            default: 0
-        - name: pageSize
+            format: int64
+            default: 2014098616
+        - name: page-filters
           in: query
           required: false
           schema:
-            type: integer
-            format: int32
-            default: 10
-        - name: sortBy
-          in: query
-          required: false
-          schema:
-            type: string
-            default: name
-        - name: dir
-          in: query
-          required: false
-          schema:
-            type: string
-            default: asc
+            $ref: '#/components/schemas/PageFilters'
       responses:
         '200':
           description: OK
@@ -264,20 +250,21 @@ paths:
             type: integer
             format: int64
             default: 2014098616
+        - name: page-filters
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/PageFilters'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
+                $ref: '#/components/schemas/PageTodoDTO'
             '*/*':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
+                $ref: '#/components/schemas/PageTodoDTO'
         '204':
           description: No Content
         '404':
@@ -289,7 +276,7 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/tasks/{userId}/todo-type:
+  /v1/tasks/{userId}/todo-type/{todoType}:
     get:
       tags:
         - Todo
@@ -305,24 +292,72 @@ paths:
             format: int64
             default: 2014098616
         - name: todoType
-          in: query
+          in: path
           required: true
           schema:
             $ref: '#/components/schemas/TodoType'
+        - name: page-filters
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/PageFilters'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
+                $ref: '#/components/schemas/PageTodoDTO'
             '*/*':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
+                $ref: '#/components/schemas/PageTodoDTO'
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+            '*/*':
+              schema:
+                type: string
+  /v1/tasks/{userId}/is-completed/{isCompleted}:
+    get:
+      tags:
+        - Todo
+      summary: Find todos by userId and todo-type
+      description: Find todos by userId
+      operationId: find-todos-by-user-id-and-is-completed
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 2014098616
+        - name: isCompleted
+          in: path
+          required: true
+          schema:
+            type: boolean
+            default: false
+        - name: page-filters
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/PageFilters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageTodoDTO'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTodoDTO'
         '204':
           description: No Content
         '404':
@@ -426,20 +461,21 @@ paths:
           required: true
           schema:
             type: string
+        - name: page-filters
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/PageFilters'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
+                $ref: '#/components/schemas/PageTodoDTO'
             '*/*':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
+                $ref: '#/components/schemas/PageTodoDTO'
         '204':
           description: No Content
         '404':
@@ -637,20 +673,21 @@ paths:
             type: integer
             format: int64
             default: 2014098616
+        - name: page-filters
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/PageFilters'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
+                $ref: '#/components/schemas/PageTodoDTO'
             '*/*':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
+                $ref: '#/components/schemas/PageTodoDTO'
         '204':
           description: No Content
         '404':
@@ -677,6 +714,11 @@ paths:
             type: integer
             format: int64
             default: 2014098616
+        - name: page-filters
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/PageFilters'
       requestBody:
         content:
           application/json:
@@ -689,14 +731,10 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
+                $ref: '#/components/schemas/PageTodoDTO'
             '*/*':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoDTO'
+                $ref: '#/components/schemas/PageTodoDTO'
         '204':
           description: No Content
         '400':
@@ -875,3 +913,20 @@ components:
           type: integer
           format: int32
           default: 0
+    PageFilters:
+      type: object
+      properties:
+        pageNo:
+          type: integer
+          format: int32
+          default: 0
+        pageSize:
+          type: integer
+          format: int32
+          default: 20
+        sortBy:
+          type: string
+          default: "id"
+        dir:
+          type: string
+          default: "desc"

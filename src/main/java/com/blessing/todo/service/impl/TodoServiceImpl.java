@@ -1,9 +1,9 @@
 package com.blessing.todo.service.impl;
 
 import com.blessing.todo.entity.Todo;
+import com.blessing.todo.entity.enums.TodoType;
 import com.blessing.todo.exception.DataNotFoundException;
 import com.blessing.todo.model.TodoSearchDTO;
-import com.blessing.todo.entity.enums.TodoType;
 import com.blessing.todo.repository.TodoRepository;
 import com.blessing.todo.repository.specification.TodoSpecification;
 import com.blessing.todo.service.TodoService;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,18 +24,18 @@ public class TodoServiceImpl implements TodoService {
     private TodoRepository todoRepository;
 
     @Override
-    public List<Todo> findAllTodosByUserId(Long userId) {
-        return todoRepository.findTop40ByAccountIdAndIsDeletedFalseOrderByDueDateDesc(userId);
+    public Page<Todo> findAllTodosByUserId(Long userId, Pageable pageable) {
+        return todoRepository.findAllTodosByAccountIdAndIsDeletedFalse(userId, pageable);
     }
 
     @Override
-    public List<Todo> findTodosByUserIdAndTodoType(Long userId, TodoType todoType) {
-        return todoRepository.findTodosByAccountIdAndTodoType(userId, todoType);
+    public Page<Todo> findTodosByUserIdAndTodoType(Long userId, TodoType todoType, Pageable pageable) {
+        return todoRepository.findTodosByAccountIdAndTodoType(userId, todoType, pageable);
     }
 
     @Override
-    public List<Todo> findAllTodosForTodayByUserId(Long userId) {
-        return todoRepository.findAllTodosByAccountIdAndDueDate(userId, LocalDate.now());
+    public Page<Todo> findAllTodosForTodayByUserId(Long userId, Pageable pageable) {
+        return todoRepository.findAllTodosByAccountIdAndDueDate(userId, LocalDate.now(), pageable);
     }
 
     @Override
@@ -52,8 +51,8 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<Todo> findAllTodosByDescriptionContaining(String title) {
-        return todoRepository.findTodoByDescriptionContainingIgnoreCase(title);
+    public Page<Todo> findAllTodosByDescriptionContaining(String title, Pageable pageable) {
+        return todoRepository.findTodoByDescriptionContainingIgnoreCase(title, pageable);
     }
 
     @Override
@@ -98,7 +97,17 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<Todo> searchTodos(Long userId, TodoSearchDTO todoSearch) {
-        return todoRepository.findAll(TodoSpecification.searchTodos(userId, todoSearch));
+    public Page<Todo> searchTodos(Long userId, TodoSearchDTO todoSearch, Pageable pageable) {
+        return todoRepository.findAll(TodoSpecification.searchTodos(userId, todoSearch), pageable);
+    }
+
+    @Override
+    public Page<Todo> findAllByUserId(Long userId, Pageable pageable) {
+        return todoRepository.findAllByAccountId(userId, pageable);
+    }
+
+    @Override
+    public Page<Todo> findAllByAccountIdAndIsCompleted(long accountId, boolean isCompleted, Pageable pageable) {
+        return todoRepository.findAllByAccountIdAndIsCompleted(accountId, isCompleted, pageable);
     }
 }
