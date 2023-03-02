@@ -817,16 +817,21 @@ components:
         totalPages:
           type: integer
           format: int32
+          default: 0
         totalElements:
           type: integer
           format: int64
+          default: 0
         first:
           type: boolean
+          default: true
         last:
           type: boolean
+          default: false
         size:
           type: integer
           format: int32
+          default: 20
         content:
           type: array
           items:
@@ -834,42 +839,53 @@ components:
         number:
           type: integer
           format: int32
-        sort:
-          $ref: '#/components/schemas/SortObject'
+          default: 0
         numberOfElements:
           type: integer
           format: int32
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
+          default: 0
         empty:
           type: boolean
+          default: true
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
     PageableObject:
       type: object
       properties:
         offset:
           type: integer
           format: int64
+          default: 0
         sort:
           $ref: '#/components/schemas/SortObject'
         paged:
           type: boolean
+          default: true
         unpaged:
           type: boolean
+          default: false
         pageNumber:
           type: integer
           format: int32
+          default: 0
         pageSize:
           type: integer
           format: int32
+          default: 20
     SortObject:
       type: object
       properties:
         empty:
           type: boolean
+          default: false
         unsorted:
           type: boolean
+          default: false
         sorted:
           type: boolean
+          default: true
     TodoSearchDTO:
       type: object
       properties:
@@ -926,7 +942,7 @@ components:
           default: 20
         sortBy:
           type: string
-          default: "id"
+          default: "dueDate"
         dir:
           type: string
           default: "desc"

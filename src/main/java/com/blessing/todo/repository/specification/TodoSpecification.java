@@ -34,12 +34,58 @@ public class TodoSpecification {
         return cb.and(cb.equal(root.get("isCompleted"), true));
     }
 
+    public static Predicate isNotCompleted(Root<Todo> root, CriteriaBuilder cb) {
+        return cb.and(cb.notEqual(root.get("isCompleted"), true));
+    }
+
     public static Predicate descriptionLike(Root<Todo> root, CriteriaBuilder cb, String description) {
         return cb.and(cb.like(root.get("description"), "%" + description + "%"));
     }
 
-    public static Predicate isDeleted(Root<Todo> root, CriteriaBuilder cb) {
-        return cb.and(cb.equal(root.get("isDeleted"), true));
+    public static Predicate isNotDeleted(Root<Todo> root, CriteriaBuilder cb) {
+        return cb.and(cb.equal(root.get("isDeleted"), false));
+    }
+
+    public static Predicate accountEqual(Long userId, Root<Todo> root, CriteriaBuilder cb) {
+        final Account account = new Account();
+        account.setId(userId);
+        return cb.and(cb.equal(root.get("isDeleted"), false));
+    }
+
+    public static Specification<Todo> endDateEqualOrLessThan(Specification<Todo> spec, TodoSearchDTO todoSearch) {
+        if(Objects.nonNull(todoSearch.getTodoType())){
+            spec.and((root, query, cb) -> cb.and(cb.lessThanOrEqualTo(root.get("dueDate"), todoSearch.getStartDate())));
+        }
+        return spec;
+    }
+
+
+    public static Specification<Todo> startDateEqualOrGreaterThan(Specification<Todo> spec, TodoSearchDTO todoSearch) {
+        if(Objects.nonNull(todoSearch.getTodoType())){
+            spec.and((root, query, cb) -> cb.and(cb.greaterThanOrEqualTo(root.get("dueDate"), todoSearch.getStartDate())));
+        }
+        return endDateEqualOrLessThan(spec, todoSearch);
+    }
+
+
+    public static Specification<Todo> descriptionEqual(Specification<Todo> spec, TodoSearchDTO todoSearch) {
+        if(Objects.nonNull(todoSearch.getTodoType())){
+            spec.and((root, query, cb) -> cb.and(cb.equal(root.get("todoType"), todoSearch.getTodoType())));
+        }
+        return spec;
+    }
+
+    public static Specification<Todo> todoTypeEqual(Specification<Todo> spec, TodoSearchDTO todoSearch) {
+        if(Objects.nonNull(todoSearch.getTodoType())){
+            spec.and((root, query, cb) -> cb.and(cb.equal(root.get("todoType"), todoSearch.getTodoType())));
+        }
+        return descriptionEqual(spec, todoSearch);
+    }
+
+    public static Specification<Todo> build(Long userId, TodoSearchDTO todoSearch) {
+        final Account account = new Account();
+        account.setId(userId);
+        return todoTypeEqual((root, query, cb) -> cb.and(cb.equal(root.get("account"), account)), todoSearch);
     }
 
     public static Specification<Todo> searchTodos(Long userId, TodoSearchDTO todoSearch) {
@@ -47,7 +93,8 @@ public class TodoSpecification {
         final Account account = new Account();
         account.setId(userId);
         return (@NonNull Root<Todo> root, @NonNull CriteriaQuery<?> query, @NonNull CriteriaBuilder cb) -> {
-            predicates.add(cb.and(cb.equal(root.get("account"), account)));
+            predicates.add(accountEqual(userId, root, cb));
+            predicates.add(isNotDeleted(root, cb));
             return applyFilters(predicates, todoSearch, root, cb);
         };
     }
@@ -77,10 +124,8 @@ public class TodoSpecification {
 
         if (todoSearch.getIsCompleted()) {
             predicates.add(isCompleted(root, cb));
-        }
-
-        if (todoSearch.getIsDeleted()) {
-            predicates.add(isDeleted(root, cb));
+        } else {
+            predicates.add(isNotCompleted(root, cb));
         }
 
         return cb.and(predicates.toArray(new Predicate[0]));

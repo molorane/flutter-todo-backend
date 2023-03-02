@@ -91,9 +91,10 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
 
     @Override
     public ResponseEntity<PageTodoDTO> findTodos(Long userId, PageFilters pageFilters) {
-        final Pageable pageable = PageableUtil.pageable(pageFilters.getPageNo(), pageFilters.getPageSize(), pageFilters.getSortBy(), pageFilters.getDir());
-        final Page<Todo> pages = todoService.findAllByUserId(userId, pageable);
-        final PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
+        final Pageable pageable = PageableUtil.pageable(pageFilters.getPageNo(),
+                pageFilters.getPageSize(), pageFilters.getSortBy(), pageFilters.getDir());
+        final Page<Todo> pages = todoService.findAll(pageable);
+        PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
         return ResponseEntity.ok(pageTodoDTO);
     }
 

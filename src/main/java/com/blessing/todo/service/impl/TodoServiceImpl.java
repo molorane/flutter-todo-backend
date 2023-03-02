@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -98,7 +99,8 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public Page<Todo> searchTodos(Long userId, TodoSearchDTO todoSearch, Pageable pageable) {
-        return todoRepository.findAll(TodoSpecification.searchTodos(userId, todoSearch), pageable);
+        final Specification<Todo> criteria = TodoSpecification.searchTodos(userId, todoSearch);
+        return todoRepository.findAll(criteria, pageable);
     }
 
     @Override
