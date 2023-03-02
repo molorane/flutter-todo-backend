@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -43,13 +42,11 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<TodoDTO>> loadTopEntitiesByUserId(Long userId) {
-        //throw new RuntimeException("Apt");
-        return ResponseEntity.ok(
-                TodoMapper.INSTANCE.internalsToDTOs(
-                        todoService.findAllTodosByUserId(userId)
-                )
-        );
+    public ResponseEntity<PageTodoDTO> loadTopEntitiesByUserId(Long userId, PageFilters pageFilters) {
+        final Pageable pageable = PageableUtil.pageable(pageFilters.getPageNo(), pageFilters.getPageSize(), pageFilters.getSortBy(), pageFilters.getDir());
+        final Page<Todo> pages = todoService.findAllTodosByUserId(userId, pageable);
+        final PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
+        return ResponseEntity.ok(pageTodoDTO);
     }
 
     @Override
@@ -62,31 +59,27 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<TodoDTO>> findTodosByUserIdAndTodoType(Long userId, TodoType todoType) {
-        return ResponseEntity.ok(
-                TodoMapper.INSTANCE.internalsToDTOs(
-                        todoService.findTodosByUserIdAndTodoType(userId,
-                                TodoTypeMapper.INSTANCE.dtoToInternal(todoType)
-                        )
-                )
-        );
+    public ResponseEntity<PageTodoDTO> findTodosByUserIdAndTodoType(Long userId, TodoType todoType, PageFilters pageFilters) {
+        final Pageable pageable = PageableUtil.pageable(pageFilters.getPageNo(), pageFilters.getPageSize(), pageFilters.getSortBy(), pageFilters.getDir());
+        final Page<Todo> pages = todoService.findTodosByUserIdAndTodoType(userId, TodoTypeMapper.INSTANCE.dtoToInternal(todoType), pageable);
+        final PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
+        return ResponseEntity.ok(pageTodoDTO);
     }
 
     @Override
-    public ResponseEntity<List<TodoDTO>> findAllTodosForTodayByUserId(Long userId) {
-        return ResponseEntity.ok(
-                TodoMapper.INSTANCE.internalsToDTOs(
-                        todoService.findAllTodosForTodayByUserId(userId)
-                )
-        );
+    public ResponseEntity<PageTodoDTO> findAllTodosForTodayByUserId(Long userId, PageFilters pageFilters) {
+        final Pageable pageable = PageableUtil.pageable(pageFilters.getPageNo(), pageFilters.getPageSize(), pageFilters.getSortBy(), pageFilters.getDir());
+        final Page<Todo> pages = todoService.findAllTodosForTodayByUserId(userId, pageable);
+        final PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
+        return ResponseEntity.ok(pageTodoDTO);
     }
 
     @Override
-    public ResponseEntity<List<TodoDTO>> findAllTodosByDescriptionContaining(String title) {
-        final List<TodoDTO> todos = TodoMapper.INSTANCE.internalsToDTOs(
-                todoService.findAllTodosByDescriptionContaining(title)
-        );
-        return new ResponseEntity<>(todos, HttpStatus.OK);
+    public ResponseEntity<PageTodoDTO> findAllTodosByDescriptionContaining(String title, PageFilters pageFilters) {
+        final Pageable pageable = PageableUtil.pageable(pageFilters.getPageNo(), pageFilters.getPageSize(), pageFilters.getSortBy(), pageFilters.getDir());
+        final Page<Todo> pages = todoService.findAllTodosByDescriptionContaining(title, pageable);
+        final PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
+        return ResponseEntity.ok(pageTodoDTO);
     }
 
     @Override
@@ -97,16 +90,11 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<PageTodoDTO> findTodos(Integer pageNo, Integer pageSize, String sortBy, String dir) {
-        final Pageable pageable = PageableUtil.pageable(pageNo, pageSize, sortBy, dir);
-        final Page<Todo> pages = todoService.findAll(pageable);
-        final List<TodoDTO> list = TodoMapper.INSTANCE.internalsToDTOs(pages.getContent());
-        if (list.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
-
-        return new ResponseEntity<>(pageTodoDTO, HttpStatus.OK);
+    public ResponseEntity<PageTodoDTO> findTodos(Long userId, PageFilters pageFilters) {
+        final Pageable pageable = PageableUtil.pageable(pageFilters.getPageNo(), pageFilters.getPageSize(), pageFilters.getSortBy(), pageFilters.getDir());
+        final Page<Todo> pages = todoService.findAllByUserId(userId, pageable);
+        final PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
+        return ResponseEntity.ok(pageTodoDTO);
     }
 
     @Override
@@ -134,11 +122,18 @@ public class TodoApiDelegateImpl implements TodoApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<TodoDTO>> searchTodos(Long userId, TodoSearchDTO todoSearch) {
-        return ResponseEntity.ok(
-                TodoMapper.INSTANCE.internalsToDTOs(
-                        todoService.searchTodos(userId, todoSearch)
-                )
-        );
+    public ResponseEntity<PageTodoDTO> searchTodos(Long userId, TodoSearchDTO todoSearch, PageFilters pageFilters) {
+        final Pageable pageable = PageableUtil.pageable(pageFilters.getPageNo(), pageFilters.getPageSize(), pageFilters.getSortBy(), pageFilters.getDir());
+        final Page<Todo> pages = todoService.searchTodos(userId, todoSearch, pageable);
+        PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
+        return ResponseEntity.ok(pageTodoDTO);
+    }
+
+    @Override
+    public ResponseEntity<PageTodoDTO> findTodosByUserIdAndIsCompleted(Long userId, Boolean isCompleted, PageFilters pageFilters) {
+        final Pageable pageable = PageableUtil.pageable(pageFilters.getPageNo(), pageFilters.getPageSize(), pageFilters.getSortBy(), pageFilters.getDir());
+        final Page<Todo> pages = todoService.findAllByAccountIdAndIsCompleted(userId, isCompleted, pageable);
+        PageTodoDTO pageTodoDTO = PaginationMapper.INSTANCE.pageTodoDTO(pages);
+        return ResponseEntity.ok(pageTodoDTO);
     }
 }
