@@ -90,10 +90,8 @@ public class TodoSpecification {
 
 
     public static Specification<Todo> searchTodos(final Long userId, final TodoSearchDTO todoSearch) {
-        final Set<Predicate> predicates = new HashSet<>();
-        final Account account = new Account();
-        account.setId(userId);
         return (root, query, cb) -> {
+            final Set<Predicate> predicates = new HashSet<>();
             accountEqual(predicates, todoSearch, userId, root, cb);
             return cb.and(predicates.toArray(new Predicate[0]));
         };
