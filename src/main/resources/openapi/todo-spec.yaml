@@ -209,11 +209,11 @@ paths:
             type: integer
             format: int64
             default: 2014098616
-        - name: page-filters
+        - name: filters
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/PageFilters'
+            $ref: '#/components/schemas/Pageable'
       responses:
         '200':
           description: OK
@@ -250,11 +250,11 @@ paths:
             type: integer
             format: int64
             default: 2014098616
-        - name: page-filters
+        - name: filters
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/PageFilters'
+            $ref: '#/components/schemas/Pageable'
       responses:
         '200':
           description: OK
@@ -296,11 +296,11 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/TodoType'
-        - name: page-filters
+        - name: filters
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/PageFilters'
+            $ref: '#/components/schemas/Pageable'
       responses:
         '200':
           description: OK
@@ -343,11 +343,11 @@ paths:
           schema:
             type: boolean
             default: false
-        - name: page-filters
+        - name: filters
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/PageFilters'
+            $ref: '#/components/schemas/Pageable'
       responses:
         '200':
           description: OK
@@ -461,11 +461,11 @@ paths:
           required: true
           schema:
             type: string
-        - name: page-filters
+        - name: filters
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/PageFilters'
+            $ref: '#/components/schemas/Pageable'
       responses:
         '200':
           description: OK
@@ -673,11 +673,11 @@ paths:
             type: integer
             format: int64
             default: 2014098616
-        - name: page-filters
+        - name: filters
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/PageFilters'
+            $ref: '#/components/schemas/Pageable'
       responses:
         '200':
           description: OK
@@ -714,11 +714,11 @@ paths:
             type: integer
             format: int64
             default: 2014098616
-        - name: page-filters
+        - name: filters
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/PageFilters'
+            $ref: '#/components/schemas/Pageable'
       requestBody:
         content:
           application/json:
@@ -929,20 +929,18 @@ components:
           type: integer
           format: int32
           default: 0
-    PageFilters:
+    Pageable:
       type: object
       properties:
-        pageNo:
+        page:
+          minimum: 0
           type: integer
           format: int32
-          default: 0
-        pageSize:
+        size:
+          minimum: 1
           type: integer
           format: int32
-          default: 20
-        sortBy:
-          type: string
-          default: "dueDate"
-        dir:
-          type: string
-          default: "desc"
+        sort:
+          type: array
+          items:
+            type: string
