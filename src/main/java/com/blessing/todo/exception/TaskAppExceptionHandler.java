@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class TodoAppExceptionHandler {
+public class TaskAppExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(DataNotFoundException.class)

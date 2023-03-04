@@ -18,7 +18,7 @@
 <!--    <module name="RegexpHeader">-->
 <!--        <property name="severity" value="error"/>-->
 <!--        <message key="header.mismatch"-->
-<!--                 value="TodoApp Copyright header seems to be incorrect. Expected ''{0}'' on this line."/>-->
+<!--                 value="TaskApp Copyright header seems to be incorrect. Expected ''{0}'' on this line."/>-->
 <!--        <property name="header" value="^/\*\n\* Copyright (\([Cc]\) )?[0-9]{4} , All Rights Reserved\n \*\n \* Licensed under the Apache License, Version 2\.0 \(the \&quot;License\&quot;\);\n \* Unauthorized copying of this file, via any medium is strictly prohibited.\n \* Proprietary and confidential\n  \* @author  Mothusi Molorane\n \* @since 1.0\n \*\/" />-->
 <!--    </module>-->
 

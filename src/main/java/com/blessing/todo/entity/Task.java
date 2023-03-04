@@ -1,6 +1,6 @@
 package com.blessing.todo.entity;
 
-import com.blessing.todo.entity.enums.TodoType;
+import com.blessing.todo.entity.enums.TaskType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,14 +13,14 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-public class Todo extends AbstractEntity {
+public class Task extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private Account account;
 
     @Enumerated(EnumType.STRING)
-    private TodoType todoType = TodoType.STUDY;
+    private TaskType taskType = TaskType.STUDY;
 
     private Boolean isCompleted = false;
 

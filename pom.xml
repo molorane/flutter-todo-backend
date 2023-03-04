@@ -12,7 +12,7 @@
 	<artifactId>todo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>todo</name>
-	<description>Todo project for Spring Boot. Dart backend</description>
+	<description>Task project for Spring Boot. Dart backend</description>
 	<properties>
 		<java.version>19</java.version>
 		<org.mapstruct.version>1.5.3.Final</org.mapstruct.version>

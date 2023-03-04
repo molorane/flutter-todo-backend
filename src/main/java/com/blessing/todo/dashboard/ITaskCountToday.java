@@ -1,7 +1,7 @@
 package com.blessing.todo.dashboard;
 
-public interface ITodoCountToday {
+public interface ITaskCountToday {
     Boolean getIsCompleted();
 
-    Long getTotalTodos();
+    Long getTotalTasks();
 }
