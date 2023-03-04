@@ -1,8 +1,8 @@
 package com.blessing.todo.mapper;
 
 import com.blessing.todo.entity.Account;
-import com.blessing.todo.entity.Todo;
-import com.blessing.todo.model.TodoDTO;
+import com.blessing.todo.entity.Task;
+import com.blessing.todo.model.TaskDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -11,16 +11,16 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
-public interface TodoMapper {
+public interface TaskMapper {
 
-    TodoMapper INSTANCE = Mappers.getMapper(TodoMapper.class);
+    TaskMapper INSTANCE = Mappers.getMapper(TaskMapper.class);
 
-    TodoDTO internalToDTO(Todo todo);
+    TaskDTO internalToDTO(Task todo);
 
     @Mapping(target = "account", expression = "java(buildAccount(userId))")
-    Todo dtoToInternal(TodoDTO todo, Long userId);
+    Task dtoToInternal(TaskDTO todo, Long userId);
 
-    List<TodoDTO> internalsToDTOs(List<Todo> todos);
+    List<TaskDTO> internalsToDTOs(List<Task> tasks);
 
     default Account buildAccount(Long userId) {
         final Account account = new Account();

@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: rename-table-todo
+      author: Mothusi Molorane
+      changes:
+        - renameTable:
+            newTableName: task
+            oldTableName: todo

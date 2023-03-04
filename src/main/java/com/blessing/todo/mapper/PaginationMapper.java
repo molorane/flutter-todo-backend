@@ -1,7 +1,7 @@
 package com.blessing.todo.mapper;
 
-import com.blessing.todo.entity.Todo;
-import com.blessing.todo.model.PageTodoDTO;
+import com.blessing.todo.entity.Task;
+import com.blessing.todo.model.PageTaskDTO;
 import com.blessing.todo.model.PageableObject;
 import com.blessing.todo.model.SortObject;
 import org.mapstruct.Mapper;
@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR, uses = {TodoMapper.class})
+@Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR, uses = {TaskMapper.class})
 public interface PaginationMapper {
 
     PaginationMapper INSTANCE = Mappers.getMapper(PaginationMapper.class);
@@ -20,5 +20,5 @@ public interface PaginationMapper {
 
     PageableObject pageableObject(Pageable pageable);
 
-    PageTodoDTO pageTodoDTO(Page<Todo> pages);
+    PageTaskDTO pageTaskDTO(Page<Task> pages);
 }

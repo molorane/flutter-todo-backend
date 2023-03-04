@@ -1,6 +1,6 @@
 package com.blessing.todo.entity.enums;
 
-public enum TodoType {
+public enum TaskType {
 
     PRAYER("PRAYER"),
 
@@ -20,7 +20,7 @@ public enum TodoType {
 
     private final String value;
 
-    TodoType(String value) {
+    TaskType(String value) {
         this.value = value;
     }
 
@@ -33,8 +33,8 @@ public enum TodoType {
         return String.valueOf(value);
     }
 
-    public static TodoType fromValue(String value) {
-        for (TodoType b : TodoType.values()) {
+    public static TaskType fromValue(String value) {
+        for (TaskType b : TaskType.values()) {
             if (b.value.equals(value)) {
                 return b;
             }

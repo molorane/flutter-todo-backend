@@ -1,11 +1,11 @@
 package com.blessing.todo.delegate;
 
 import com.blessing.todo.api.DashboardApiDelegate;
-import com.blessing.todo.mapper.TodoDashboardMapper;
-import com.blessing.todo.model.TodoCountToday;
-import com.blessing.todo.model.TodoGroupCount;
-import com.blessing.todo.model.TodoType;
-import com.blessing.todo.service.TodoDashboardService;
+import com.blessing.todo.mapper.TaskDashboardMapper;
+import com.blessing.todo.model.TaskCountToday;
+import com.blessing.todo.model.TaskGroupCount;
+import com.blessing.todo.model.TaskType;
+import com.blessing.todo.service.TaskDashboardService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,22 +16,22 @@ import java.util.List;
 @AllArgsConstructor
 public class DashboardApiDelegateImpl implements DashboardApiDelegate {
 
-    private TodoDashboardService todoDashboardService;
+    private TaskDashboardService taskDashboardService;
 
     @Override
-    public ResponseEntity<Long> countDeletedTodosByUserId(Long userId) {
-        return ResponseEntity.ok(todoDashboardService.countDeletedTodosByAccountId(userId));
+    public ResponseEntity<Long> countDeletedTasksByUserId(Long userId) {
+        return ResponseEntity.ok(taskDashboardService.countDeletedTasksByAccountId(userId));
     }
 
     @Override
-    public ResponseEntity<List<TodoGroupCount>> todoGroupCountByUserId(Long userId, TodoType todoType) {
+    public ResponseEntity<List<TaskGroupCount>> taskGroupCountByUserId(Long userId, TaskType taskType) {
         return ResponseEntity.ok(
-                TodoDashboardMapper.INSTANCE.internalsToDTOs(todoDashboardService.todoGroupCountByUserId(userId, todoType)));
+                TaskDashboardMapper.INSTANCE.internalsToDTOs(taskDashboardService.taskGroupCountByUserId(userId, taskType)));
     }
 
     @Override
-    public ResponseEntity<List<TodoCountToday>> todoCountTodayByUserId(Long userId, TodoType todoType) {
+    public ResponseEntity<List<TaskCountToday>> taskCountTodayByUserId(Long userId, TaskType taskType) {
         return ResponseEntity.ok(
-                TodoDashboardMapper.INSTANCE.internalsToTodoCountToday(todoDashboardService.todoCountTodayByUserId(userId, todoType)));
+                TaskDashboardMapper.INSTANCE.internalsToTaskCountToday(taskDashboardService.taskCountTodayByUserId(userId, taskType)));
     }
 }

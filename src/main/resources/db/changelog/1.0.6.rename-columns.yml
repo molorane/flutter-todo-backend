@@ -49,3 +49,13 @@ databaseChangeLog:
             oldColumnName: deleted
             remarks: Rename column deleted
             tableName: app_role
+  - changeSet:
+      id: rename-column-todo-type
+      author: Mothusi Molorane
+      changes:
+        - renameColumn:
+            columnDataType: varchar(20)
+            newColumnName: task_type
+            oldColumnName: todo_type
+            remarks: Rename column todo_type
+            tableName: task
