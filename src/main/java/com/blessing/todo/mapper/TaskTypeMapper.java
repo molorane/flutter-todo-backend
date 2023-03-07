@@ -11,6 +11,4 @@ public interface TaskTypeMapper {
     TaskTypeMapper INSTANCE = Mappers.getMapper(TaskTypeMapper.class);
 
     TaskType dtoToInternal(com.blessing.todo.model.TaskType todo);
-
-    com.blessing.todo.model.TaskType internalToDTO(TaskType todo);
 }
