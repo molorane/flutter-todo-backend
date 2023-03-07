@@ -15,3 +15,5 @@ databaseChangeLog:
       file: /db/changelog/1.0.6.rename-columns.yml
   - include:
       file: /db/changelog/1.0.7.rename-table-todo.yml
+  - include:
+      file: /db/changelog/1.0.8.update-task-type.yml

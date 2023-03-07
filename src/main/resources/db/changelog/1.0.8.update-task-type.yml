@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: update-task-type-preach
+      author: Mothusi Molorane
+      changes:
+        - update:
+            columns:
+              - column:
+                  name: task_type
+                  value: PRAY
+            tableName: task
+            where: task_type='PREACH'
+  - changeSet:
+      id: update-task-type-pray
+      author: Mothusi Molorane
+      changes:
+        - update:
+            columns:
+              - column:
+                  name: task_type
+                  value: PRAY
+            tableName: task
+            where: task_type='PRAYER'

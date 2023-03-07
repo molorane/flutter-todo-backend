@@ -769,9 +769,8 @@ components:
     TaskType:
       type: string
       enum:
-        - PRAYER
+        - PRAY
         - GYM
-        - PREACH
         - FLUTTER
         - SPRING
         - STUDY

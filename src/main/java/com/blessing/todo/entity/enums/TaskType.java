@@ -2,11 +2,9 @@ package com.blessing.todo.entity.enums;
 
 public enum TaskType {
 
-    PRAYER("PRAYER"),
+    PRAY("PRAY"),
 
     GYM("GYM"),
-
-    PREACH("PREACH"),
 
     FLUTTER("FLUTTER"),
 
