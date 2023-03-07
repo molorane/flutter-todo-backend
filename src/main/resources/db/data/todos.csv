@@ -1,13 +1,85 @@
-user_id,todo_type,title,completed,due_date,description
-2014098616,FOOD, Have break fast, true, '2022-10-10', Eat healthy meal
-2014098616,GYM, Do workout, true, '2023-01-23', Run 10km
-2014098616,PREACH, Evangelise my world, false, '2023-01-10', Distribute tracts at the gym
-2014098616,FLUTTER, Learn Flutter, true, '2023-02-01', Code flutter app for one hour
-2014098616,GYM, Do workout, true, '2023-01-23', Run 10km
-2014098616,FOOD, Have lunch, true, '2023-02-10', Eat healthy lunch
-2014098616,STUDY, Study or read a book, false, '2020-11-23', Do my quite time
-2014098616,SPRING, Spring Certification, true, '2022-12-30', Watch online Spring certificate
-2014098616,PRAYER, Prayer time, true, '2023-01-09', Pray for my family
-2014098616,STUDY, Study the bible, true, '2023-01-03', Study the bible
-2014098616,GYM, Go to the gym, true, '1991-11-20', Run for 5km then do workouts
-2014098616,PRAYER, Prayer time, true, '2020-05-29', Remember to pray
+user_id,todo_type,title,due_date,description
+2014098616,FOOD,Have break fast,'2022-10-10',Eat healthy meal
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,PREACH,Evangelise my world,'2023-01-10',Distribute tracts at the gym
+2014098616,FLUTTER,Learn Flutter,'2023-02-01',Code flutter app for one hour
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,FOOD,Have lunch,'2023-02-10',Eat healthy lunch
+2014098616,STUDY,Study or read a book,'2020-11-23',Do my quite time
+2014098616,SPRING,Spring Certification,'2022-12-30',Watch online Spring certificate
+2014098616,PRAYER,Prayer time,'2023-01-09',Pray for my family
+2014098616,STUDY,Study the bible,'2023-01-03',Study the bible
+2014098616,GYM,Go to the gym,'1991-11-20',Run for 5km then do workouts
+2014098616,PRAYER,Prayer time,'2020-05-29',Remember to pray
+2014098616,FOOD,Have break fast,'2022-10-10',Eat healthy meal
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,PREACH,Evangelise my world,'2023-01-10',Distribute tracts at the gym
+2014098616,FLUTTER,Learn Flutter,'2023-02-01',Code flutter app for one hour
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,FOOD,Have lunch,'2023-02-10',Eat healthy lunch
+2014098616,STUDY,Study or read a book,'2020-11-23',Do my quite time
+2014098616,SPRING,Spring Certification,'2022-12-30',Watch online Spring certificate
+2014098616,PRAYER,Prayer time,'2023-01-09',Pray for my family
+2014098616,STUDY,Study the bible,'2023-01-03',Study the bible
+2014098616,GYM,Go to the gym,'1991-11-20',Run for 5km then do workouts
+2014098616,PRAYER,Prayer time,'2020-05-29',Remember to pray
+2014098616,FOOD,Have break fast,'2022-10-10',Eat healthy meal
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,PREACH,Evangelise my world,'2023-01-10',Distribute tracts at the gym
+2014098616,FLUTTER,Learn Flutter,'2023-02-01',Code flutter app for one hour
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,FOOD,Have lunch,'2023-02-10',Eat healthy lunch
+2014098616,STUDY,Study or read a book,'2020-11-23',Do my quite time
+2014098616,SPRING,Spring Certification,'2022-12-30',Watch online Spring certificate
+2014098616,PRAYER,Prayer time,'2023-01-09',Pray for my family
+2014098616,STUDY,Study the bible,'2023-01-03',Study the bible
+2014098616,GYM,Go to the gym,'1991-11-20',Run for 5km then do workouts
+2014098616,PRAYER,Prayer time,'2020-05-29',Remember to pray
+2014098616,FOOD,Have break fast,'2022-10-10',Eat healthy meal
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,PREACH,Evangelise my world,'2023-01-10',Distribute tracts at the gym
+2014098616,FLUTTER,Learn Flutter,'2023-02-01',Code flutter app for one hour
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,FOOD,Have lunch,'2023-02-10',Eat healthy lunch
+2014098616,STUDY,Study or read a book,'2020-11-23',Do my quite time
+2014098616,SPRING,Spring Certification,'2022-12-30',Watch online Spring certificate
+2014098616,PRAYER,Prayer time,'2023-01-09',Pray for my family
+2014098616,STUDY,Study the bible,'2023-01-03',Study the bible
+2014098616,GYM,Go to the gym,'1991-11-20',Run for 5km then do workouts
+2014098616,PRAYER,Prayer time,'2020-05-29',Remember to pray
+2014098616,FOOD,Have break fast,'2022-10-10',Eat healthy meal
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,PREACH,Evangelise my world,'2023-01-10',Distribute tracts at the gym
+2014098616,FLUTTER,Learn Flutter,'2023-02-01',Code flutter app for one hour
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,FOOD,Have lunch,'2023-02-10',Eat healthy lunch
+2014098616,STUDY,Study or read a book,'2020-11-23',Do my quite time
+2014098616,SPRING,Spring Certification,'2022-12-30',Watch online Spring certificate
+2014098616,PRAYER,Prayer time,'2023-01-09',Pray for my family
+2014098616,STUDY,Study the bible,'2023-01-03',Study the bible
+2014098616,GYM,Go to the gym,'1991-11-20',Run for 5km then do workouts
+2014098616,PRAYER,Prayer time,'2020-05-29',Remember to pray
+2014098616,FOOD,Have break fast,'2022-10-10',Eat healthy meal
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,PREACH,Evangelise my world,'2023-01-10',Distribute tracts at the gym
+2014098616,FLUTTER,Learn Flutter,'2023-02-01',Code flutter app for one hour
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,FOOD,Have lunch,'2023-02-10',Eat healthy lunch
+2014098616,STUDY,Study or read a book,'2020-11-23',Do my quite time
+2014098616,SPRING,Spring Certification,'2022-12-30',Watch online Spring certificate
+2014098616,PRAYER,Prayer time,'2023-01-09',Pray for my family
+2014098616,STUDY,Study the bible,'2023-01-03',Study the bible
+2014098616,GYM,Go to the gym,'1991-11-20',Run for 5km then do workouts
+2014098616,PRAYER,Prayer time,'2020-05-29',Remember to pray
+2014098616,FOOD,Have break fast,'2022-10-10',Eat healthy meal
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,PREACH,Evangelise my world,'2023-01-10',Distribute tracts at the gym
+2014098616,FLUTTER,Learn Flutter,'2023-02-01',Code flutter app for one hour
+2014098616,GYM,Do workout,'2023-01-23',Run 10km
+2014098616,FOOD,Have lunch,'2023-02-10',Eat healthy lunch
+2014098616,STUDY,Study or read a book,'2020-11-23',Do my quite time
+2014098616,SPRING,Spring Certification,'2022-12-30',Watch online Spring certificate
+2014098616,PRAYER,Prayer time,'2023-01-09',Pray for my family
+2014098616,STUDY,Study the bible,'2023-01-03',Study the bible
+2014098616,GYM,Go to the gym,'1991-11-20',Run for 5km then do workouts
+2014098616,PRAYER,Prayer time,'2020-05-29',Remember to pray

@@ -15,9 +15,6 @@ databaseChangeLog:
                   name: title
                   type: string
               - column:
-                  name: completed
-                  type: boolean
-              - column:
                   name: due_date
                   type: date
               - column:
