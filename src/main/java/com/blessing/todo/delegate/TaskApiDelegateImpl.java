@@ -52,7 +52,7 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
     @Override
     public ResponseEntity<PageTaskDTO> findTasksByUserId(Long userId, Pageable pageable) {
         final Page<Task> pages = todoService.findAllTasksByUserId(userId, pageable);
-        PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
+        final PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
         return ResponseEntity.ok(pageTaskDTO);
     }
 
@@ -120,14 +120,14 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
     @Override
     public ResponseEntity<PageTaskDTO> searchTasks(Long userId, TaskSearchDTO todoSearch, Pageable pageable) {
         final Page<Task> pages = todoService.searchTasks(userId, todoSearch, pageable);
-        PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
+        final PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
         return ResponseEntity.ok(pageTaskDTO);
     }
 
     @Override
     public ResponseEntity<PageTaskDTO> findTasksByUserIdAndIsCompleted(Long userId, Boolean isCompleted, Pageable pageable) {
         final Page<Task> pages = todoService.findAllByAccountIdAndIsCompleted(userId, isCompleted, pageable);
-        PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
+        final PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
         return ResponseEntity.ok(pageTaskDTO);
     }
 }
