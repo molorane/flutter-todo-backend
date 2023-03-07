@@ -194,54 +194,13 @@ paths:
             '*/*':
               schema:
                 type: string
-  /v1/tasks/{userId}/pages:
+  /v1/tasks/{userId}/user:
     get:
       tags:
         - Task
       summary: Get Tasks in pages
       description: Get Tasks
-      operationId: find-tasks
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-            default: 2014098616
-        - name: pageable
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/Pageable'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PageTaskDTO'
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/PageTaskDTO'
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: string
-            '*/*':
-              schema:
-                type: string
-  /v1/tasks/{userId}/user:
-    get:
-      tags:
-        - Task
-      summary: Find tasks by userId
-      description: Find tasks by userId
-      operationId: load-top-entities-by-user-id
+      operationId: find-tasks-by-user-id
       parameters:
         - name: userId
           in: path

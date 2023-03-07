@@ -41,9 +41,9 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
     }
 
     @Override
-    public ResponseEntity<PageTaskDTO> loadTopEntitiesByUserId(Long userId, Pageable pageable) {
+    public ResponseEntity<PageTaskDTO> findTasksByUserId(Long userId, Pageable pageable) {
         final Page<Task> pages = todoService.findAllTasksByUserId(userId, pageable);
-        final PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
+        PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
         return ResponseEntity.ok(pageTaskDTO);
     }
 
@@ -82,13 +82,6 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
         final TaskDTO todoDTO = TaskMapper.INSTANCE.internalToDTO(todoService.findById(todoId)
                 .orElseThrow(() -> new DataNotFoundException("Church not found")));
         return new ResponseEntity<>(todoDTO, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<PageTaskDTO> findTasks(Long userId, Pageable pageable) {
-        final Page<Task> pages = todoService.findAll(pageable);
-        PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
-        return ResponseEntity.ok(pageTaskDTO);
     }
 
     @Override

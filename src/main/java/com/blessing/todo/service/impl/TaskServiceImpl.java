@@ -41,7 +41,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task findTaskByIdAndUserId(Long todoId, Long userId) {
-        return taskRepository.findByIdAndAccountId(todoId, userId).orElseThrow(
+        return taskRepository.findByIdAndAccountIdAndIsDeletedFalse(todoId, userId).orElseThrow(
                 () -> new DataNotFoundException("Could not find todo")
         );
     }
@@ -93,7 +93,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void restoreDeletedTask(Long id, Long userId) {
-        Task todo = taskRepository.findByIdAndAccountId(id, userId).orElseThrow(() -> new DataNotFoundException("Entity not found."));
+        Task todo = taskRepository.findByIdAndAccountIdAndIsDeletedFalse(id, userId).orElseThrow(() -> new DataNotFoundException("Entity not found."));
         todo.setIsDeleted(false);
     }
 
@@ -105,7 +105,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Page<Task> findAllByUserId(Long userId, Pageable pageable) {
-        return taskRepository.findAllByAccountId(userId, pageable);
+        return taskRepository.findAllByAccountIdAndIsDeletedFalse(userId, pageable);
     }
 
     @Override

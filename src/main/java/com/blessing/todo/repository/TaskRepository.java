@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface TaskRepository extends AbstractRepository<Task>, JpaSpecificationExecutor<Task> {
 
-    Optional<Task> findByIdAndAccountId(Long todoId, Long userId);
+    Optional<Task> findByIdAndAccountIdAndIsDeletedFalse(Long todoId, Long userId);
 
     Page<Task> findTaskByDescriptionContainingIgnoreCase(String title, Pageable pageable);
 
@@ -37,5 +37,5 @@ public interface TaskRepository extends AbstractRepository<Task>, JpaSpecificati
 
     Page<Task> findTasksByAccountIdAndTaskType(Long userId, TaskType todoType, Pageable pageable);
 
-    Page<Task> findAllByAccountId(Long userId, Pageable pageable);
+    Page<Task> findAllByAccountIdAndIsDeletedFalse(Long userId, Pageable pageable);
 }
