@@ -770,7 +770,7 @@ components:
       type: string
       enum:
         - PRAY
-        - GYM
+        - WORKOUT
         - FLUTTER
         - SPRING
         - STUDY

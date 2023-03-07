@@ -4,7 +4,7 @@ public enum TaskType {
 
     PRAY("PRAY"),
 
-    GYM("GYM"),
+    WORKOUT("WORKOUT"),
 
     FLUTTER("FLUTTER"),
 

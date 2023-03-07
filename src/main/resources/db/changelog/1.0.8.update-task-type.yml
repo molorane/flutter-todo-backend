@@ -21,3 +21,14 @@ databaseChangeLog:
                   value: PRAY
             tableName: task
             where: task_type='PRAYER'
+  - changeSet:
+      id: update-task-type-gym
+      author: Mothusi Molorane
+      changes:
+        - update:
+            columns:
+              - column:
+                  name: task_type
+                  value: WORKOUT
+            tableName: task
+            where: task_type='GYM'
