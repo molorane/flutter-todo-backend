@@ -23,7 +23,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -110,11 +109,6 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
                 )
         );
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @Override
-    public ResponseEntity<DefaultResponse> uploadFile(Long userId, MultipartFile profileImage) {
-        return TaskApiDelegate.super.uploadFile(userId, profileImage);
     }
 
     @Override

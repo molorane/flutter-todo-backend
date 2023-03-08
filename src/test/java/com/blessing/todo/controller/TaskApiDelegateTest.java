@@ -55,6 +55,6 @@ public class TaskApiDelegateTest {
         this.mockMvc.perform(get("http://localhost:2023/todo/v1/tasks/2014098616/user"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.content").value(0));
+                .andExpect(jsonPath("$.content").value(0));
     }
 }
