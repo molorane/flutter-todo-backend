@@ -18,7 +18,7 @@ tags:
     description: Api generates data for dashboard
   - name: Task
     description: Api operations for the task
-  - name: TodoFileUpload
+  - name: FileUpload
     description: Api operations for uploading files
 paths:
   /v1/tasks/{userId}:
@@ -686,12 +686,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TaskDTO'
-  /v1/tasks/{userId}/uploadProfile:
+  /v1/tasks/{userId}/upload-profile-image:
     post:
       tags:
-        - TodoFileUpload
+        - FileUpload
       summary: uploads an image
-      operationId: upload-file
+      operationId: upload-profile-image
       parameters:
         - name: userId
           in: path
@@ -719,6 +719,40 @@ paths:
                 $ref: '#/components/schemas/DefaultResponse'
         '204':
           description: No Content
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+  /v1/tasks/{userId}/load-profile-image:
+    get:
+      tags:
+        - FileUpload
+      operationId: load-profile-image
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: string
         '404':
           description: Not Found
           content:

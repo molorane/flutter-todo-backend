@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @ControllerAdvice
 public class TaskAppExceptionHandler {
@@ -30,5 +31,17 @@ public class TaskAppExceptionHandler {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void noContentHandler() {
 
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleFileUploadError(MaxUploadSizeExceededException ex) {
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(StorageException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String storageException(MaxUploadSizeExceededException ex) {
+        return ex.getMessage();
     }
 }
