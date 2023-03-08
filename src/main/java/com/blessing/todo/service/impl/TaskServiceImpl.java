@@ -102,7 +102,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void restoreDeletedTask(Long id, Long userId) {
-        Task todo = taskRepository.findByIdAndAccountIdAndIsDeletedFalse(id, userId).orElseThrow(() -> new DataNotFoundException("Entity not found."));
+        Task todo = taskRepository.findByIdAndAccountIdAndIsDeletedTrue(id, userId).orElseThrow(() -> new DataNotFoundException("Entity not found."));
         todo.setIsDeleted(false);
     }
 

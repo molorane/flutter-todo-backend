@@ -22,6 +22,8 @@ import java.util.Optional;
 
 public interface TaskRepository extends AbstractRepository<Task>, JpaSpecificationExecutor<Task> {
 
+    Optional<Task> findByIdAndAccountIdAndIsDeletedTrue(Long todoId, Long userId);
+
     Optional<Task> findByIdAndAccountIdAndIsDeletedFalse(Long todoId, Long userId);
 
     Page<Task> findTaskByDescriptionContainingIgnoreCase(String title, Pageable pageable);
