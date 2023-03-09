@@ -58,4 +58,4 @@ databaseChangeLog:
             newColumnName: task_type
             oldColumnName: todo_type
             remarks: Rename column todo_type
-            tableName: task
+            tableName: todo

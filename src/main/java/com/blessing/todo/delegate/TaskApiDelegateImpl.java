@@ -1,3 +1,12 @@
+/*
+ * Copyright 2023 , All Rights Reserved
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * @author  Mothusi Molorane
+ * @since 1.0
+ */
+
 package com.blessing.todo.delegate;
 
 import com.blessing.todo.api.TaskApiDelegate;
@@ -14,7 +23,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -43,7 +51,7 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
     @Override
     public ResponseEntity<PageTaskDTO> findTasksByUserId(Long userId, Pageable pageable) {
         final Page<Task> pages = todoService.findAllTasksByUserId(userId, pageable);
-        PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
+        final PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
         return ResponseEntity.ok(pageTaskDTO);
     }
 
@@ -104,21 +112,16 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
     }
 
     @Override
-    public ResponseEntity<DefaultResponse> uploadFile(Long userId, MultipartFile profileImage) {
-        return TaskApiDelegate.super.uploadFile(userId, profileImage);
-    }
-
-    @Override
     public ResponseEntity<PageTaskDTO> searchTasks(Long userId, TaskSearchDTO todoSearch, Pageable pageable) {
         final Page<Task> pages = todoService.searchTasks(userId, todoSearch, pageable);
-        PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
+        final PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
         return ResponseEntity.ok(pageTaskDTO);
     }
 
     @Override
     public ResponseEntity<PageTaskDTO> findTasksByUserIdAndIsCompleted(Long userId, Boolean isCompleted, Pageable pageable) {
         final Page<Task> pages = todoService.findAllByAccountIdAndIsCompleted(userId, isCompleted, pageable);
-        PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
+        final PageTaskDTO pageTaskDTO = PaginationMapper.INSTANCE.pageTaskDTO(pages);
         return ResponseEntity.ok(pageTaskDTO);
     }
 }

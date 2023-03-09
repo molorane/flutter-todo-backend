@@ -7,14 +7,16 @@
  * @since 1.0
  */
 
-package com.blessing.todo.dashboard;
+package com.blessing.todo;
 
-import com.blessing.todo.entity.enums.TaskType;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-public interface ITaskGroupCount {
-    TaskType getTaskType();
+@SpringBootTest
+class TaskApplicationTests {
 
-    Boolean getIsCompleted();
+    @Test
+    void contextLoads() {
+    }
 
-    Long getTotalTasks();
 }

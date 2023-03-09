@@ -1,3 +1,12 @@
+/*
+ * Copyright 2023 , All Rights Reserved
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * @author  Mothusi Molorane
+ * @since 1.0
+ */
+
 package com.blessing.todo.repository;
 
 import com.blessing.todo.entity.Task;
@@ -12,6 +21,8 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface TaskRepository extends AbstractRepository<Task>, JpaSpecificationExecutor<Task> {
+
+    Optional<Task> findByIdAndAccountIdAndIsDeletedTrue(Long todoId, Long userId);
 
     Optional<Task> findByIdAndAccountIdAndIsDeletedFalse(Long todoId, Long userId);
 
