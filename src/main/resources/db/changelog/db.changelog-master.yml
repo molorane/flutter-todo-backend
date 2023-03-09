@@ -17,3 +17,7 @@ databaseChangeLog:
       file: /db/changelog/1.0.7.rename-table-todo.yml
   - include:
       file: /db/changelog/1.0.8.update-task-type.yml
+  - include:
+      file: /db/changelog/1.0.9.add-column-email.yml
+  - include:
+      file: /db/changelog/1.1.0.add-foreign-key-task-user-id.yml

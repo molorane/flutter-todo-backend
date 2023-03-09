@@ -1,0 +1,150 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-column-email
+      author: Mothusi Molorane
+      changes:
+        - sql:
+            dbms: 'all'
+            sql: ALTER TABLE account_info ADD COLUMN `email` varchar(50) NULL AFTER `user_id`
+  - changeSet:
+      id: load-email-data
+      author: Mothusi Molorane
+      changes:
+        - loadUpdateData:
+            columns:
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(50)
+            onlyUpdate: true
+            primaryKey: user_id
+            file: data/email-data.csv
+            tableName: account_info
+            separator: ','
+            relativeToChangelogFile: true
+            encoding: UTF-8
+            userPreparedStatements: true
+  - changeSet:
+      id: update-account-info
+      author: Mothusi Molorane
+      changes:
+        - update:
+            columns:
+              - column:
+                  name: last_name
+                  value: Ndivhuho
+              - column:
+                  name: first_name
+                  value: Netshiah
+              - column:
+                  name: other_name
+                  value: Peter
+              - column:
+                  name: gender
+                  value: Male
+            tableName: account_info
+            where: user_id='2014098614'
+  - changeSet:
+      id: drop-foreign-key-constraint-fk_account_info_user_id
+      author: Mothusi Molorane
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: account_info
+            constraintName: fk_account_info_user_id
+  - changeSet:
+      id: drop-column-id
+      author: Mothusi Molorane
+      changes:
+        - dropColumn:
+            columnName: id
+            tableName: account_info
+  - changeSet:
+      id: rename-column-user-id
+      author: Mothusi Molorane
+      changes:
+        - renameColumn:
+            columnDataType: int
+            newColumnName: id
+            oldColumnName: user_id
+            remarks: Rename column user_id
+            tableName: account_info
+
+  - changeSet:
+      id: drop-unique-key-constraint-fk_account_info_user_id
+      author: Mothusi Molorane
+      changes:
+        - dropUniqueConstraint:
+            tableName: account_info
+            constraintName: uk_account_info_user_id
+  - changeSet:
+      id: add-primary-key-id
+      author: Mothusi Molorane
+      changes:
+        - addPrimaryKey:
+            columnNames: id
+            constraintName: pk_account_info
+            tableName: account_info
+            validate: true
+  - changeSet:
+      id: add-auto-increment-id
+      author: Mothusi Molorane
+      changes:
+        - addAutoIncrement:
+            columnDataType: bigint
+            columnName: id
+            defaultOnNull: false
+            generationType: ALWAYS
+            startWith: 2014098619
+            tableName: account_info
+  - changeSet:
+      id: drop-foreign-key-constraint-fk_todo_user_id
+      author: Mothusi Molorane
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: task
+            constraintName: fk_todo_user_id
+  - changeSet:
+      id: add-foreign-key-constraint-id
+      author: Mothusi Molorane
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: task
+            constraintName: fk_task_user_id
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: account
+            validate: true
+  - changeSet:
+      id: drop-foreign-key-constraint-fk_account_role_user_id
+      author: Mothusi Molorane
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: account_role
+            constraintName: fk_account_role_user_id
+  - changeSet:
+      id: drop-foreign-key-constraint-fk_task_user_id
+      author: Mothusi Molorane
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: task
+            constraintName: fk_task_user_id
+  - changeSet:
+      id: drop-table-account
+      author: Mothusi Molorane
+      changes:
+        - dropTable:
+            cascadeConstraints: true
+            tableName: account
+  - changeSet:
+      id: rename-table-account_info
+      author: Mothusi Molorane
+      changes:
+        - renameTable:
+            newTableName: account
+            oldTableName: account_info

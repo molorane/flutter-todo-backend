@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: modify-data-type-id
+      author: Mothusi Molorane
+      changes:
+        - modifyDataType:
+            columnName: id
+            newDataType: BIGINT
+            tableName: account
+  - changeSet:
+      id: add-foreign-key-constraint-user-id
+      author: Mothusi Molorane
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: task
+            constraintName: fk_task_user_id
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: account
+            validate: true
+  - changeSet:
+      id: add-foreign-key-constraint-role-user-id
+      author: Mothusi Molorane
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: account_role
+            constraintName: fk_account_role_user_id
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: account
+            validate: true
+  - changeSet:
+        id: add-primary-key-user-id-role-id
+        author: Mothusi Molorane
+        changes:
+            - addPrimaryKey:
+                  columnNames: user_id,role_id
+                  constraintName: pk_account_role_user_id_role_id
+                  tableName: account_role
+                  validate: true
+  - changeSet:
+        id: drop-unique-key-constraint-uk_account_role
+        author: Mothusi Molorane
+        changes:
+            - dropUniqueConstraint:
+                  tableName: account_role
+                  constraintName: uk_account_role
