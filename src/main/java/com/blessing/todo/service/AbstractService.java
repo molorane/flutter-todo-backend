@@ -27,6 +27,10 @@ public interface AbstractService<T> {
         throw new RuntimeException("You need to implement this method to save an entity.");
     }
 
+    default T update(final T entity) {
+        throw new RuntimeException("You need to implement this method to save an entity.");
+    }
+
     default List<Task> saveAll(final Iterable<T> entities) {
         throw new RuntimeException("You need to implement this method to saveAll an entities.");
     }

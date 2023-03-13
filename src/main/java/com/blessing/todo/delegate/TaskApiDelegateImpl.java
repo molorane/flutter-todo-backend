@@ -104,7 +104,7 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
     @Override
     public ResponseEntity<Void> updateTask(Long userId, TaskDTO todoDTO) {
         TaskMapper.INSTANCE.internalToDTO(
-                todoService.save(
+                todoService.update(
                         TaskMapper.INSTANCE.dtoToInternal(todoDTO, userId)
                 )
         );

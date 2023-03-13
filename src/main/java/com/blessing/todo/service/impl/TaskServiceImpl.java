@@ -40,8 +40,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Page<Task> findTasksByUserIdAndTaskType(Long userId, TaskType todoType, Pageable pageable) {
-        return taskRepository.findTasksByAccountIdAndTaskType(userId, todoType, pageable);
+    public Page<Task> findTasksByUserIdAndTaskType(Long userId, TaskType taskType, Pageable pageable) {
+        return taskRepository.findTasksByAccountIdAndTaskType(userId, taskType, pageable);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task findTaskByIdAndUserId(Long todoId, Long userId) {
-        return taskRepository.findByIdAndAccountIdAndIsDeletedFalse(todoId, userId).orElseThrow(
-                () -> new DataNotFoundException("Could not find todo")
+    public Task findTaskByIdAndUserId(Long taskId, Long userId) {
+        return taskRepository.findByIdAndAccountIdAndIsDeletedFalse(taskId, userId).orElseThrow(
+                () -> new DataNotFoundException("Could not find task")
         );
     }
 
@@ -72,8 +72,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task save(Task todo) {
-        return taskRepository.save(todo);
+    public Task save(Task task) {
+        return taskRepository.save(task);
+    }
+
+    @Override
+    public Task update(Task task) {
+        Task updateTask = findById(task.getId()).orElseThrow(() -> new DataNotFoundException("Task not found"));
+        task.setCreatedDate(updateTask.getCreatedDate());
+        return taskRepository.save(task);
     }
 
     @Override
@@ -98,13 +105,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void restoreDeletedTask(Long id, Long userId) {
-        Task todo = taskRepository.findByIdAndAccountIdAndIsDeletedTrue(id, userId).orElseThrow(() -> new DataNotFoundException("Entity not found."));
-        todo.setIsDeleted(false);
+        Task task = taskRepository.findByIdAndAccountIdAndIsDeletedTrue(id, userId).orElseThrow(() -> new DataNotFoundException("Entity not found."));
+        task.setIsDeleted(false);
     }
 
     @Override
-    public Page<Task> searchTasks(Long userId, TaskSearchDTO todoSearch, Pageable pageable) {
-        final Specification<Task> criteria = TaskSpecification.searchTasks(userId, todoSearch);
+    public Page<Task> searchTasks(Long userId, TaskSearchDTO taskSearch, Pageable pageable) {
+        final Specification<Task> criteria = TaskSpecification.searchTasks(userId, taskSearch);
         return taskRepository.findAll(criteria, pageable);
     }
 
