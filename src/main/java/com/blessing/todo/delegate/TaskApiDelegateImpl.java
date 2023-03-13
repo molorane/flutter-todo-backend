@@ -42,10 +42,7 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
     @Override
     public ResponseEntity<DefaultResponse> deleteTaskByIdAndUserId(Long id, Long userId) {
         todoService.deleteByIdAndAccountId(id, userId);
-        return new ResponseEntity<>(
-                new DefaultResponse().message("Task Deleted").date(LocalDateTime.now()),
-                HttpStatus.OK
-        );
+        return ResponseEntity.ok(new DefaultResponse().message("Task Deleted").date(LocalDateTime.now()));
     }
 
     @Override
@@ -89,7 +86,7 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
     public ResponseEntity<TaskDTO> findTaskById(Long todoId) {
         final TaskDTO todoDTO = TaskMapper.INSTANCE.internalToDTO(todoService.findById(todoId)
                 .orElseThrow(() -> new DataNotFoundException("Church not found")));
-        return new ResponseEntity<>(todoDTO, HttpStatus.OK);
+        return ResponseEntity.ok(todoDTO);
     }
 
     @Override
@@ -108,7 +105,7 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
                         TaskMapper.INSTANCE.dtoToInternal(todoDTO, userId)
                 )
         );
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
