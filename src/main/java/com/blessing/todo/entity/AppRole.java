@@ -25,12 +25,12 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 public class AppRole extends AbstractEntity {
 
-    private String role;
+    private String name;
 
     private String desc;
 
     @Override
     public String toString() {
-        return this.role;
+        return this.name;
     }
 }

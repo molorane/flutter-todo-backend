@@ -23,7 +23,6 @@ public interface AccountMapper {
 
     AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
-    @Mapping(source = "desc", target = "name")
     AccountRoleDTO internalToDTO(AppRole appRole);
 
     AccountDTO internalToDTO(Account account);

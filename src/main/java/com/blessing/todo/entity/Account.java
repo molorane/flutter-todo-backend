@@ -56,6 +56,8 @@ public class Account extends AbstractEntity {
 
     private String profile;
 
+    private String phone;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "account_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -64,7 +66,7 @@ public class Account extends AbstractEntity {
 
     public boolean hasRole(String userRole) {
         return roles.stream()
-                .filter(role -> userRole.equals(role.getRole()))
+                .filter(role -> userRole.equals(role.getName()))
                 .findAny()
                 .orElse(null) != null;
     }

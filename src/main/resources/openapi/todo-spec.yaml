@@ -859,6 +859,8 @@ components:
           example: '2023-01-01'
         gender:
           $ref: '#/components/schemas/Gender'
+        phone:
+          type: string
         roles:
           type: array
           items:

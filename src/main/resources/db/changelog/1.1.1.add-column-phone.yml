@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-column-phone
+      author: Mothusi Molorane
+      changes:
+        - addColumn:
+            tableName: account
+            columns:
+              - column:
+                  name: phone
+                  type: varchar(50)
+  - changeSet:
+      id: load-phone-data
+      author: Mothusi Molorane
+      changes:
+        - loadUpdateData:
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(50)
+            onlyUpdate: true
+            primaryKey: id
+            file: data/phone-data.csv
+            tableName: account
+            separator: ','
+            relativeToChangelogFile: true
+            encoding: UTF-8
+            userPreparedStatements: true
+  - changeSet:
+      id: load-phone-roles
+      author: Mothusi Molorane
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: int
+            encoding: UTF-8
+            file: data/app-role-data.csv
+            relativeToChangelogFile: true
+            separator: ','
+            tableName: account_role
