@@ -11,7 +11,6 @@ package com.blessing.todo.delegate;
 
 import com.blessing.todo.api.TaskApiDelegate;
 import com.blessing.todo.entity.Task;
-import com.blessing.todo.exception.DataNotFoundException;
 import com.blessing.todo.mapper.PaginationMapper;
 import com.blessing.todo.mapper.TaskMapper;
 import com.blessing.todo.mapper.TaskTypeMapper;
@@ -85,7 +84,7 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
     @Override
     public ResponseEntity<TaskDTO> findTaskById(Long todoId) {
         final TaskDTO todoDTO = TaskMapper.INSTANCE.internalToDTO(todoService.findById(todoId)
-                .orElseThrow(() -> new DataNotFoundException("Church not found")));
+                .orElseThrow());
         return ResponseEntity.ok(todoDTO);
     }
 

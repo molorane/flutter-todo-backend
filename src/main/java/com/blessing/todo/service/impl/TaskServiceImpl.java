@@ -78,7 +78,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task update(Task task) {
-        Task updateTask = findById(task.getId()).orElseThrow(() -> new DataNotFoundException("Task not found"));
+        final Task updateTask = findById(task.getId()).orElseThrow();
         task.setCreatedDate(updateTask.getCreatedDate());
         return taskRepository.save(task);
     }
@@ -105,7 +105,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void restoreDeletedTask(Long id, Long userId) {
-        Task task = taskRepository.findByIdAndAccountIdAndIsDeletedTrue(id, userId).orElseThrow(() -> new DataNotFoundException("Entity not found."));
+        final Task task = taskRepository.findByIdAndAccountIdAndIsDeletedTrue(id, userId).orElseThrow();
         task.setIsDeleted(false);
     }
 

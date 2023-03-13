@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
+import java.util.NoSuchElementException;
+
 @ControllerAdvice
 public class TaskAppExceptionHandler {
 
@@ -24,6 +26,13 @@ public class TaskAppExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String dataNotFoundHandler(DataNotFoundException ex) {
         return ex.getErrorMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String noSuchElementException(NoSuchElementException ex) {
+        return ex.getMessage();
     }
 
     @ResponseBody

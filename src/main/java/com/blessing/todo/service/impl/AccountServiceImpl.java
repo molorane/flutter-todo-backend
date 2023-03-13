@@ -26,6 +26,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account update(Account entity) {
+        final Account account = findById(entity.getId()).orElseThrow();
         return save(entity);
     }
 
