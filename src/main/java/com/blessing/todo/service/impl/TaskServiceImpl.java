@@ -24,6 +24,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -76,13 +77,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task update(Task todo) {
-        Task update = findById(todo.getId()).orElseThrow(() -> new DataNotFoundException("An error occurred while updating entity"));
-        update.setTaskType(todo.getTaskType());
-        update.setDescription(todo.getDescription());
-        update.setDueDate(todo.getDueDate());
-        update.setIsCompleted(todo.getIsCompleted());
-        return update;
+    public List<Task> saveAll(Iterable<Task> entities) {
+        return taskRepository.saveAll(entities);
     }
 
     @Override

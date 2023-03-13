@@ -22,8 +22,5 @@ public interface AccountRepository extends AbstractRepository<Account> {
 
     Optional<Account> findByEmail(String email);
 
-    Optional<Account> findByUsername(String username);
-
-
     List<Account> findByRolesIn(Set<AppRole> roles);
 }

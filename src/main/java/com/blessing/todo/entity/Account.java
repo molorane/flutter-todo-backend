@@ -9,10 +9,10 @@
 
 package com.blessing.todo.entity;
 
+import com.blessing.todo.entity.enums.Gender;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,54 +34,33 @@ public class Account extends AbstractEntity {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @NotEmpty(message = "Username required.")
-    @Column(nullable = false, unique = true)
-    private String username;
-
-    @Column(unique = true)
-    @NotEmpty(message = "Email Required.")
+    @NotEmpty(message = "Email required.")
     @Email(message = "Invalid email format")
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    @Size(min = 4, message = "Password must at least be 4 characters")
-    private String password;
+    @NotEmpty(message = "First name required.")
+    private String firstName;
 
-    @Transient
-    @Size(min = 4, message = "Password must at least be 4 characters")
-    private String password_confirm;
+    @NotEmpty(message = "Last name required.")
+    private String lastName;
 
-    @Column(columnDefinition = "int default 1")
-    private int status;
-
-    private boolean isLocked;
-
-    private boolean isActive;
+    @NotEmpty(message = "Other name required.")
+    private String otherName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate expiryDate = LocalDate.now().plusMonths(1);
+    private LocalDate dob;
+
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
+
+    private String profile;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "account_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<AppRole> roles = new HashSet<>();
-
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private AccountInfo accountInfo;
-
-    public Account(String username, String email, String password, int status, Set<AppRole> roles) {
-        super();
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.status = status;
-        this.roles = roles;
-    }
-
-    public boolean accountExpired() {
-        return !expiryDate.isAfter(LocalDate.now());
-    }
 
     public boolean hasRole(String userRole) {
         return roles.stream()
